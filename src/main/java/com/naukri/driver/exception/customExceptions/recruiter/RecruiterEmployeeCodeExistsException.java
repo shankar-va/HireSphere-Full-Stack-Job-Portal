@@ -1,13 +1,13 @@
 package com.naukri.driver.exception.customExceptions.recruiter;
 
-public class RecruiterNotFound extends RuntimeException {
+public class RecruiterEmployeeCodeExistsException extends RuntimeException{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public RecruiterNotFound(String message) {
+	public RecruiterEmployeeCodeExistsException(String message) {
 		super(message);
 	}
 

@@ -6,8 +6,6 @@ import java.util.Set;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
-
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -26,7 +24,7 @@ import jakarta.persistence.Table;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "recruiter_info", indexes = {@Index(name = "idx_rec_id", columnList = "rec_id"),
+@Table(name = "recruiter_info", indexes = {
         @Index(name = "idx_emp_code", columnList = "emp_code")})
 public class Recruiter {
     @Id
@@ -52,7 +50,7 @@ public class Recruiter {
     @ManyToOne
     private Company company;
     @Singular("job")
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "recruiter")
+    @OneToMany(mappedBy = "recruiter",orphanRemoval = true)
     private Set<Job> jobs;
 
 }

@@ -16,6 +16,8 @@ public class RecruiterRegistrationRequest {
     private String designation;
     @NotBlank
     private String domain;
+    @NotBlank
+    private String employeeCode;
     @NotNull
     private Double experience;
     @NotNull
