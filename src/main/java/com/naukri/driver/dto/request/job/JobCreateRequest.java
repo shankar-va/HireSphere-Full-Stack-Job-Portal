@@ -24,7 +24,7 @@ public class JobCreateRequest {
 	@NotNull
 	private Integer recruiterId;
 	@NotBlank
-	private String employmentMode;
+	private List<String> employmentMode;
 	@NotNull
 	private Double experienceRequired;
 	@NotNull

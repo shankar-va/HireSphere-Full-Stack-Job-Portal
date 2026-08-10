@@ -10,7 +10,7 @@ public interface UserRepository extends JpaRepository<User,Integer> {
 
     public Boolean existsByEmail(String email);
     public Boolean existsByPhoneNumber(String phoneNumber);
-    public Boolean existsByEmailAndNotEqualToId(String email,Integer id);
-    public Boolean existsByPhoneNumberAndNotEqualToId(String phoneNumber,Integer id);
+    public Boolean existsByEmailAndUserIdNot(String email,Integer id);
+    public Boolean existsByPhoneNumberAnduserIdNot(String phoneNumber,Integer id);
 
 }

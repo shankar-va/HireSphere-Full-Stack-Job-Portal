@@ -41,7 +41,7 @@ public class Recruiter {
     @Column(name = "emp_code", nullable = false, unique = true)
     private String employeeCode;
     @Column(name = "exp", nullable = false, columnDefinition = "Integer DEFAULT 0")
-    private Integer experience;
+    private Double experience;
     @Column(name = "created_At", nullable = false, insertable = true, updatable = false)
     @CreationTimestamp
     private LocalDateTime joinedDate;

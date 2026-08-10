@@ -8,17 +8,18 @@ import com.naukri.driver.exception.customExceptions.user.UserNotFoundException;
 import com.naukri.driver.mapper.user.UserMapper;
 import com.naukri.driver.model.entity.User;
 import com.naukri.driver.repository.UserRepository;
+
+import lombok.RequiredArgsConstructor;
+
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class UserService {
     private final UserMapper userMapper;
     private final UserRepository userRepository;
 
-    public UserService(UserMapper userMapper, UserRepository userRepository) {
-        this.userMapper = userMapper;
-        this.userRepository = userRepository;
-    }
+
 
     public UserResponse register(UserRegistrationRequest request){
         User user=userMapper.toEntity(request);
@@ -35,9 +36,9 @@ public class UserService {
 
         User user=userRepository.findById(request.getUserId()).orElseThrow(()->new UserNotFoundException("User Not Found"));
         if(request.getEmail()!=null)
-            if(userRepository.existsByEmailAndNotEqualToId(request.getEmail(),request.getUserId()))throw new InvalidUserDetailsException("Email  already exists");
+            if(userRepository.existsByEmailAndUserIdNot(request.getEmail(),request.getUserId()))throw new InvalidUserDetailsException("Email  already exists");
         if(request.getPhoneNumber()!=null)
-            if (userRepository.existsByPhoneNumberAndNotEqualToId(request.getPhoneNumber(),request.getUserId()))throw new InvalidUserDetailsException(" PhoneNumber already exists");
+            if (userRepository.existsByPhoneNumberAnduserIdNot(request.getPhoneNumber(),request.getUserId()))throw new InvalidUserDetailsException(" PhoneNumber already exists");
         User user1 = userMapper.updateUser(request, user);
         User user2 = userRepository.save(user1);
         return userMapper.toResponseDTO(user2);
