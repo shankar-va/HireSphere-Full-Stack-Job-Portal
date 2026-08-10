@@ -4,20 +4,9 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 
+import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Index;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.SequenceGenerator;
-import jakarta.persistence.Table;
 
 @Getter
 @Setter
@@ -32,20 +21,22 @@ public class Job {
 	@SequenceGenerator(name = "job_id", sequenceName = "seq_job_id", initialValue = 1, allocationSize = 1)
 	@Column(name = "job_id")
 	private Integer jobId;
-	@Column(name = "job-title", nullable = false)
+	@Column(name = "job_title", nullable = false)
 	private String title;
 	@Column(name = "job_description", nullable = false)
 	private String description;
-	@Column(name = "emp_mode", nullable = true)
-	private List<String> employmentMode;
-	@Column(name = "exp", nullable = true)
-	private Double experienceRequired;
-	@Column(name = "min_sal", nullable = true)
+	@ElementCollection
+	private Set<String> employmentMode;
+	@Column(name = "min_exp")
+	private Double minimumExperienceRequired;
+	@Column(name = "max_exp")
+	private Double maximumExperienceRequired;
+	@Column(name = "min_sal")
 	private Double minimum_sal;
-	@Column(name = "max_sal", nullable = true)
+	@Column(name = "max_sal")
 	private Double maximum_sal;
-	@Column(name = "loc", nullable = false)
-	private List<String> preferredLocations;
+	@ElementCollection
+	private Set<String> preferredLocations;
 	@Column(name = "vacancy", nullable = false, columnDefinition = "Integer DEFAULT 0")
 	private Integer vacancies;
 	@Column(name = "posted_on", nullable = false, insertable = true, updatable = false)
@@ -53,12 +44,14 @@ public class Job {
 	private LocalDate postedDate;
 	@Column(name = "deadline", nullable = false)
 	private LocalDate applicationDeadLine;
+	@Column(name = "is_closed",nullable = false,columnDefinition = "Boolean DEFAULT false")
+	private Boolean isClosed;
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Company company;
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Recruiter recruiter;
 	@Singular("jobApplication")
-	@OneToMany(mappedBy = "job",orphanRemoval = true)
+	@OneToMany(mappedBy = "job")
 	private Set<JobApplication> jobApplications;
 	
 }

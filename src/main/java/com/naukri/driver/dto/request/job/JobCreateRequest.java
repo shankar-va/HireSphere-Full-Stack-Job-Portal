@@ -25,7 +25,7 @@ public class JobCreateRequest {
 	private Integer recruiterId;
 	@NotBlank
 	private List<String> employmentMode;
-	@NotNull
+	@PositiveOrZero
 	private Double experienceRequired;
 	@NotNull
 	@Future
@@ -35,6 +35,8 @@ public class JobCreateRequest {
 	@NotNull
 	@Positive
 	private Integer vacancies;
+	@PositiveOrZero
 	private Double minimum_sal;
+	@PositiveOrZero
 	private Double maximum_sal;
 }

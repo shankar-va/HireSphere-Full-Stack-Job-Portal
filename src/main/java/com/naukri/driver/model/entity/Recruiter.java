@@ -40,7 +40,7 @@ public class Recruiter {
     private String employeeCode;
     @Column(name = "exp", nullable = false, columnDefinition = "Integer DEFAULT 0")
     private Double experience;
-    @Column(name = "created_At", nullable = false, insertable = true, updatable = false)
+    @Column(name = "created_At", nullable = false, insertable =             true, updatable = false)
     @CreationTimestamp
     private LocalDateTime joinedDate;
     @Column(name = "active", nullable = false, columnDefinition = "Boolean DEFAULT false")
