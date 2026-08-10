@@ -1,16 +1,13 @@
 package com.naukri.driver;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.EntityTransaction;
-import jakarta.persistence.Persistence;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+@SpringBootApplication
 public class Main {
 
 	public static void main(String[] args) {
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("alpha");
-		EntityManager em = emf.createEntityManager();
-		EntityTransaction et = em.getTransaction();
-		System.out.println("Database connection!...");
+		SpringApplication.run(Main.class);
+		System.out.println("Spring application starts");
 	}
 }
