@@ -1,5 +1,14 @@
 package com.naukri.driver.service.impl;
 
+import com.naukri.driver.dto.request.jobseeker.JobSeekerSearchRequest;
+import com.naukri.driver.dto.response.jobseeker.JobSeekerSummaryResponse;
+import com.naukri.driver.exception.customExceptions.jobSeeker.JobSeekerInvalidSortingException;
+import com.naukri.driver.specification.jobSeeker.BuildJobSeekerSpecification;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,14 +30,16 @@ import com.naukri.driver.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
-public class JobSeekerService {
+public class JobSeekerServiceImpl {
 	private final UserRepository userRepository;
 	private final JobSeekerRepository jobSeekerRepository;
 	private final JobSeekerMapper jobSeekerMapper;
 	private final ResumeRepository resumeRepository;
-	
+	private final BuildJobSeekerSpecification buildJobSeekerSpecification;
 	@Transactional
 	public JobSeekerResponse registerJobSeeker(JobSeekerRegistrationRequest request) {
 		User user = userRepository.findById(request.getUserId()).orElseThrow(()-> new UserNotFoundException("User Not Found."));
@@ -71,5 +82,56 @@ public class JobSeekerService {
 	            jobSeekerRepository.save(updatedJobSeeker);
 
 	    return jobSeekerMapper.toResponseDTO(savedJobSeeker);
+	}
+	public Page<JobSeekerSummaryResponse> searchJobSeekers(
+			JobSeekerSearchRequest request,
+			Integer page,
+			Integer size,
+			String sort,
+			String sortDirection) {
+
+		Specification<JobSeeker> specification =
+				buildJobSeekerSpecification
+						.buildJobSeekerSpecification(request);
+
+		List<String> sortOrder = List.of(
+				"jobSeekerId",
+				"experience",
+				"currentSalary",
+				"expectedSalary"
+		);
+
+		if (sort == null || !sortOrder.contains(sort)) {
+			sort = "jobSeekerId";
+		}
+
+		if (sortDirection == null || sortDirection.isBlank()) {
+			sortDirection = "asc";
+		}
+
+		if (!sortDirection.equalsIgnoreCase("asc")
+				&& !sortDirection.equalsIgnoreCase("desc")) {
+
+			throw new JobSeekerInvalidSortingException(
+					"Invalid sorting direction");
+		}
+
+		if (page == null || page < 0) {
+			page = 0;
+		}
+
+		if (size == null || size <= 0) {
+			size = 10;
+		}
+
+		Pageable pageable = PageRequest.of(
+				page,
+				size,
+				Sort.by(sort, sortDirection)
+		);
+
+		return jobSeekerRepository
+				.findAll(specification, pageable)
+				.map(jobSeekerMapper::toResponseDTOSummary);
 	}
 }

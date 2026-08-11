@@ -16,7 +16,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class CompanyService {
+public class CompanyServiceImpl  {
 	private final CompanyRepository repository;
 	private final CompanyMapper companyMapper;
 

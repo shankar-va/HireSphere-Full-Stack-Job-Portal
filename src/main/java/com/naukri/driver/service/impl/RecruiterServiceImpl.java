@@ -22,7 +22,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class RecruiterService {
+public class RecruiterServiceImpl {
 	private final UserRepository userRepository;
 	private final CompanyRepository companyRepository;
 	private final RecruiterMapper recruiterMapper;

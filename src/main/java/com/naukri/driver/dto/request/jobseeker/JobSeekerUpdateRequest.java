@@ -32,6 +32,4 @@ public class JobSeekerUpdateRequest {
 	@Size(min = 1)
 	String highestQualification;
 	Boolean availableForHire;
-	@Positive
-	Integer resumeId;
 }

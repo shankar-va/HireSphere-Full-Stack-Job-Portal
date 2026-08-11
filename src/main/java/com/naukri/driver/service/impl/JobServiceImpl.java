@@ -19,7 +19,6 @@ import com.naukri.driver.repository.CompanyRepository;
 import com.naukri.driver.repository.JobRepository;
 import com.naukri.driver.repository.RecruiterRepository;
 import com.naukri.driver.specification.job.BuildJobSpecification;
-import com.naukri.driver.specification.job.JobSpecification;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -32,7 +31,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class JobService {
+public class JobServiceImpl {
     private final CompanyRepository companyRepository;
     private final RecruiterRepository recruiterRepository;
     private final JobRepository jobRepository;

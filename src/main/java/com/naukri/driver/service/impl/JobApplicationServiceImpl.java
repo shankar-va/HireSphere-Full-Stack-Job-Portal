@@ -6,7 +6,6 @@ import com.naukri.driver.dto.request.jobApplication.JobApplicationSearchRequest;
 import com.naukri.driver.dto.response.jobApplication.JobApplicationResponse;
 import com.naukri.driver.dto.response.jobApplication.JobApplicationSummaryResponse;
 import com.naukri.driver.enumaration.jobApplication.ApplicationStatus;
-import com.naukri.driver.exception.customExceptions.job.JobInvalidSortingException;
 import com.naukri.driver.exception.customExceptions.job.JobNotFoundException;
 import com.naukri.driver.exception.customExceptions.jobApplication.*;
 import com.naukri.driver.exception.customExceptions.jobSeeker.JobSeekerNotFoundException;
@@ -32,7 +31,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class JobApplicationService {
+public class JobApplicationServiceImpl {
     private final JobRepository jobRepository;
     private final JobApplicationMapper jobApplicationMapper;
     private final JobApplicationRepository jobApplicationRepository;
