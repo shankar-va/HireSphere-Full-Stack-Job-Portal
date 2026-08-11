@@ -1,9 +1,9 @@
 package com.naukri.driver.model.entity;
 
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Set;
 
+import com.naukri.driver.enumaration.job.EmploymentMode;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -25,8 +25,9 @@ public class Job {
 	private String title;
 	@Column(name = "job_description", nullable = false)
 	private String description;
+	@Enumerated(EnumType.STRING)
 	@ElementCollection
-	private Set<String> employmentMode;
+	private Set<EmploymentMode> employmentMode;
 	@Column(name = "min_exp")
 	private Double minimumExperienceRequired;
 	@Column(name = "max_exp")

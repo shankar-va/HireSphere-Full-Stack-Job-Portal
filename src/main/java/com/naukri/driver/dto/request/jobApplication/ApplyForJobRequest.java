@@ -17,7 +17,7 @@ public class ApplyForJobRequest {
     @NotNull
     Integer jobId;
     @NotNull
-    Integer JobSeekerId;
+    Integer jobseekerId;
     @NotBlank
     private String coverLetter;
     private LocalDate expectedJoinDate;

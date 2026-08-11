@@ -3,6 +3,7 @@ package com.naukri.driver.dto.request.job;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.naukri.driver.enumaration.job.EmploymentMode;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,7 +25,7 @@ public class JobCreateRequest {
 	@NotNull
 	private Integer recruiterId;
 	@NotBlank
-	private List<String> employmentMode;
+	private List<EmploymentMode> employmentMode;
 	@PositiveOrZero
 	private Double experienceRequired;
 	@NotNull

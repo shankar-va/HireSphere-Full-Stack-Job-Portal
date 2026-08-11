@@ -19,8 +19,6 @@ public class UserService {
     private final UserMapper userMapper;
     private final UserRepository userRepository;
 
-
-
     public UserResponse register(UserRegistrationRequest request){
         User user=userMapper.toEntity(request);
         User newUser;

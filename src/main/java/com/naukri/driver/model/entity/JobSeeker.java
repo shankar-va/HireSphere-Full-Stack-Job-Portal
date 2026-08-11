@@ -26,19 +26,19 @@ import lombok.*;
 		@Index(name = "idx_exp", columnList = "exp") })
 public class JobSeeker {
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "")
-	@SequenceGenerator(name = "job_seeker_id", sequenceName = "seq_job_seeker", initialValue = 1, allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "job_seeker_id")
+	@SequenceGenerator(name = "job_seeker_id", sequenceName = "seq_job_seeker", allocationSize = 1)
 	@Column(name = "job_seeker_id")
 	private Integer jobseekerId;
-	@Column(name = "description", nullable = true)
+	@Column(name = "description")
 	private String headLine;
 	@Column(name = "exp", nullable = false, columnDefinition = "Integer DEFAULT 0")
 	private Double experience;
 	@Column(name = "curr_sal", nullable = false)
 	private Double currentSalary;
-	@Column(name = "expect_sal", nullable = true)
+	@Column(name = "expect_sal")
 	private Double expectedSalary;
-	@Column(name = "pref_loc", nullable = true)
+	@Column(name = "pref_loc")
 	private List<String> preferredLocation;
 	@Column(name = "qualification", nullable = false)
 	private String highestQualification;

@@ -1,19 +1,13 @@
 package com.naukri.driver.dto.response.jobApplication;
 
 import com.naukri.driver.enumaration.jobApplication.ApplicationStatus;
-import lombok.Builder;
 import lombok.Value;
 
 import java.time.LocalDate;
-
 @Value
-@Builder
-public class JobApplicationResponse {
+public class JobApplicationSummaryResponse {
     Integer applicationId;
     LocalDate appliedDate;
     ApplicationStatus status;
-    String coverLetter;
-    LocalDate expectedJoinDate;
-    LocalDate interviewDate;
     Double offerSalary;
 }

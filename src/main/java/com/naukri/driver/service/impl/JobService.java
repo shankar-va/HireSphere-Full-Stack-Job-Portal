@@ -18,15 +18,17 @@ import com.naukri.driver.model.entity.Recruiter;
 import com.naukri.driver.repository.CompanyRepository;
 import com.naukri.driver.repository.JobRepository;
 import com.naukri.driver.repository.RecruiterRepository;
-import com.naukri.driver.specification.JobSpecification;
+import com.naukri.driver.specification.job.BuildJobSpecification;
+import com.naukri.driver.specification.job.JobSpecification;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -35,7 +37,7 @@ public class JobService {
     private final RecruiterRepository recruiterRepository;
     private final JobRepository jobRepository;
     private final JobMapper jobMapper;
-    private final JobSpecification jobSpecification;
+    private final BuildJobSpecification jobSpecification;
 
     public JobResponse createJob(JobCreateRequest request) {
         if(request.getCompanyId()==null){
@@ -67,6 +69,7 @@ public class JobService {
     }
 
     public JobResponse updateJob(JobUpdateRequest request){
+
         Job job = jobRepository.findById((request.getJobId()))
                                        .orElseThrow(() -> new JobNotFoundException("Job Not Found"));
         Double newMin = request.getMinimum_sal() != null
@@ -89,20 +92,26 @@ public class JobService {
         jobRepository.deleteById(jobId);
     }
     public Page<JobSummaryResponse> searchJobs( Integer page, Integer size, String sort,String sortDirection, JobSearchRequest request){
-        Specification<Job> specification = jobSpecification.byJobId(request.getJobId()).and(
-                                                         jobSpecification.byJobTitle(request.getTitle())
-                                                                         .and(jobSpecification.byJobDescription(request.getDescription()))
-                                                                         .and(jobSpecification.byEmploymentMode(request.getEmploymentMode())))
-                                                 .and(jobSpecification.byPreferredLocation(request.getPreferredLocation()))
-                                                 .and(jobSpecification.byMinimumExperience(request.getMinimumExperienceRequired()))
-                                                 .and(jobSpecification.byMaximumExperience(request.getMaximumExperienceRequired()))
-                                                 .and(jobSpecification.byMinimumSalary(request.getMinimum_sal()))
-                                                 .and(jobSpecification.byMaximumSalary(request.getMaximum_sal()))
-                                                 .and(jobSpecification.byVacancies(request.getVacancies()))
-                                                 .and(jobSpecification.byCompany(request.getCompanyId()))
-                                                 .and(jobSpecification.byRecruiter(request.getRecruiterId()));
-        Sort sortBy = Optional.of(sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sort).ascending() : Sort.by(sort).descending()).orElseThrow(()->new JobInvalidSortingException("Provide Valid Sorting format"));
-        PageRequest pageRequest = PageRequest.of(page, size, sortBy);
+        Specification<Job> specification = jobSpecification.buildJobSpecification(request);
+        if (sortDirection==null ||sortDirection.isBlank())sortDirection="asc";
+        if(!(sortDirection.equalsIgnoreCase("asc")||sortDirection.equalsIgnoreCase("desc")))throw new JobInvalidSortingException("Provide Valid Sorting format");
+        List<String> sortOrder = List.of("title",
+                "postedDate",
+                "minimumExperienceRequired",
+                "maximumExperienceRequired",
+                "minimum_sal",
+                "maximum_sal",
+                "vacancies",
+                "applicationDeadLine");
+        if(sort==null|| ! sortOrder.contains(sort))throw new JobInvalidSortingException("Invalid sort field");
+        if (page==null||page<0)page=0;
+        if(size==null||size<=0)size=10;
+        Sort sortBy =sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sort).ascending() : Sort.by(sort).descending();
+        Pageable pageRequest = PageRequest.of(
+                page,
+                size,
+                sortBy
+        );
         return jobRepository.findAll(specification,pageRequest).map(jobMapper::toResponseDTOSummary);
 
     }

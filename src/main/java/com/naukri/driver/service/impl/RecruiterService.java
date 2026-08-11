@@ -66,5 +66,4 @@ public class RecruiterService {
 			throw new RecruiterNotFound("Recruiter Not Found!!!...");
 		recruiterRepository.deleteById(recruiterId);
 	}
-
 }
