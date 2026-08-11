@@ -1,6 +1,5 @@
 package com.naukri.driver.dto.request.job;
 
-import com.naukri.driver.enumaration.job.EmploymentMode;
 import jakarta.validation.constraints.*;
 import jdk.jfr.BooleanFlag;
 import lombok.*;
@@ -18,7 +17,6 @@ public class JobUpdateRequest {
     String title;
     String description;
     @Singular("emp_mode")
-    List<EmploymentMode> employmentMode;
     @PositiveOrZero
     Double experienceRequired;
     @PositiveOrZero

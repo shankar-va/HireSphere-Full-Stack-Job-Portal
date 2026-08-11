@@ -1,6 +1,5 @@
 package com.naukri.driver.dto.request.job;
 
-import com.naukri.driver.enumaration.job.EmploymentMode;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.PositiveOrZero;
 import lombok.*;
@@ -17,7 +16,6 @@ public class JobSearchRequest {
     String title;
     String description;
     List<String> preferredLocation;
-    List<EmploymentMode> employmentMode;
     @PositiveOrZero
     Double minimumExperienceRequired;
     @PositiveOrZero
