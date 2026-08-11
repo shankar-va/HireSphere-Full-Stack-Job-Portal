@@ -5,6 +5,9 @@ import jakarta.validation.constraints.PositiveOrZero;
 import lombok.*;
 
 import java.util.List;
+import java.util.Set;
+
+import com.naukri.driver.enumaration.job.EmploymentMode;
 
 @Data
 @AllArgsConstructor
@@ -15,7 +18,10 @@ public class JobSearchRequest {
     Integer jobId;
     String title;
     String description;
+    @Singular("location")
     List<String> preferredLocation;
+    @Singular("empMode")
+    Set<EmploymentMode> employmentMode;
     @PositiveOrZero
     Double minimumExperienceRequired;
     @PositiveOrZero

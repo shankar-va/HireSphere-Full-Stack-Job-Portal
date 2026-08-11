@@ -5,6 +5,9 @@ import jdk.jfr.BooleanFlag;
 import lombok.*;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
+
+import com.naukri.driver.enumaration.job.EmploymentMode;
 
 @Data
 @AllArgsConstructor
@@ -18,7 +21,7 @@ public class JobUpdateRequest {
     String description;
     @Singular("emp_mode")
     @PositiveOrZero
-    Double experienceRequired;
+    Set<EmploymentMode> employmentMode;
     @PositiveOrZero
     Double minimum_sal;
     @PositiveOrZero

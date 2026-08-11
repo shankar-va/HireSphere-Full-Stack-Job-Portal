@@ -2,6 +2,7 @@ package com.naukri.driver.dto.request.jobseeker;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PositiveOrZero;
 import lombok.*;
 
 import java.util.List;
@@ -12,18 +13,22 @@ import java.util.List;
 @NoArgsConstructor
 
 public class JobSeekerRegistrationRequest {
+	@NotNull
+	Integer userId;
     @NotBlank
     private String headline;
     @NotNull
+    @PositiveOrZero
     private Double experience;
     @NotNull
+    @PositiveOrZero
     private Double currentSalary;
-    @NonNull
-    private Double expectedSalary;
     @NotNull
+    @PositiveOrZero
+    private Double expectedSalary;
     @Singular("location")
     private List<String> preferredLocation;
-    @NotNull
+    @NotBlank
     private String highestQualification;
     @NotNull
     private Boolean availableForHire;

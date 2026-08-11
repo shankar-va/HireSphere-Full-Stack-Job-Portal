@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 @Component
 public class JobSpecification {
@@ -24,7 +25,7 @@ public class JobSpecification {
         if(description==null|| description.isBlank())return Specification.where(null);
         return (root,query,cb)->cb.like(cb.lower(root.get("description")),"%"+description.toLowerCase()+"%");
     }
-    public Specification<Job> byEmploymentMode(List<EmploymentMode> employmentMode){
+    public Specification<Job> byEmploymentMode(Set<EmploymentMode> employmentMode){
         if(employmentMode==null||employmentMode.isEmpty())return Specification.where(null);
         return (root,query,cb)->{
             query.distinct(true);
