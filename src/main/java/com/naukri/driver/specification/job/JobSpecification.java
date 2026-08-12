@@ -77,7 +77,7 @@ public class JobSpecification {
     }
     public Specification<Job> byCompany(Integer companyId){
         if(companyId==null)return Specification.where(null);
-        return (root,query,cb)->cb.equal(root.get("company").get("companyId"),companyId);
+        return (root,query,cb)->cb.equal(root.join("company").get("companyId"),companyId);
     }
     public Specification<Job> byRecruiter(Integer recruiterId){
         if(recruiterId==null)return Specification.where(null);

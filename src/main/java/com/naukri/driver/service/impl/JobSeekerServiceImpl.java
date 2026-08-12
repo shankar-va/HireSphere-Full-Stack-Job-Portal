@@ -41,9 +41,9 @@ public class JobSeekerServiceImpl {
 	private final ResumeRepository resumeRepository;
 	private final BuildJobSeekerSpecification buildJobSeekerSpecification;
 	@Transactional
-	public JobSeekerResponse registerJobSeeker(JobSeekerRegistrationRequest request) {
-		User user = userRepository.findById(request.getUserId()).orElseThrow(()-> new UserNotFoundException("User Not Found."));
-		if(jobSeekerRepository.existsByUserUserId(request.getUserId()))throw new JobSeekerAlreadyExists("User already has JobSeeker profile");
+	public JobSeekerResponse registerJobSeeker(JobSeekerRegistrationRequest request,Integer userId) {
+		User user = userRepository.findById(userId).orElseThrow(()-> new UserNotFoundException("User Not Found."));
+		if(jobSeekerRepository.existsByUserUserId(userId))throw new JobSeekerAlreadyExists("User already has JobSeeker profile");
 		JobSeeker jobSeeker = jobSeekerMapper.toEntity(request, user);
 		JobSeeker newJobSeeker = jobSeekerRepository.save(jobSeeker);
 		return jobSeekerMapper.toResponseDTO(newJobSeeker);

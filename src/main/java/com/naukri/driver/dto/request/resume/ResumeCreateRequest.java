@@ -12,10 +12,8 @@ import java.util.Map;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ResumeCreateRequest {
-
     @NotNull
     private Integer jobSeekerId;
-
     private String summary;
 
     @NotBlank

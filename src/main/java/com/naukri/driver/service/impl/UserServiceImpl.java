@@ -36,7 +36,7 @@ public class UserServiceImpl {
         if(request.getEmail()!=null)
             if(userRepository.existsByEmailAndUserIdNot(request.getEmail(),request.getUserId()))throw new InvalidUserDetailsException("Email  already exists");
         if(request.getPhoneNumber()!=null)
-            if (userRepository.existsByPhoneNumberAnduserIdNot(request.getPhoneNumber(),request.getUserId()))throw new InvalidUserDetailsException(" PhoneNumber already exists");
+            if (userRepository.existsByPhoneNumberAndUserIdNot(request.getPhoneNumber(),request.getUserId()))throw new InvalidUserDetailsException(" PhoneNumber already exists");
         User user1 = userMapper.updateUser(request, user);
         User user2 = userRepository.save(user1);
         return userMapper.toResponseDTO(user2);

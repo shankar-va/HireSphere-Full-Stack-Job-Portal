@@ -35,8 +35,8 @@ public class JobSeeker {
 	private Integer jobSeekerId;
 	@Column(name = "description")
 	private String headLine;
-	@Column(name = "exp", nullable = false, columnDefinition = "Integer DEFAULT 0")
-	private Double experience;
+	@Column(name = "exp", nullable = false)
+	private Double experience=0.0;
 	@Column(name = "curr_sal", nullable = false)
 	private Double currentSalary;
 	@Column(name = "expect_sal")

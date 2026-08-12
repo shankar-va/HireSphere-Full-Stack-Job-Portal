@@ -18,7 +18,7 @@ public class JobApplication {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "job_app_id")
 	@SequenceGenerator(name = "job_app_id", sequenceName = "seq_job_app_id", allocationSize = 1)
-	@Column(name = "applicationId")
+	@Column(name = "job_app_id")
 	private Integer applicationId;
 	@CreationTimestamp
 	@Column(name = "applied_date", nullable = false, updatable = false)

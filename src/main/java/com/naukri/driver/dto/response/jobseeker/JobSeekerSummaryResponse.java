@@ -6,8 +6,8 @@ import lombok.Value;
 @Value
 @Builder
 public class JobSeekerSummaryResponse {
-    Integer jobseekerId;
-    String headline;
+    Integer jobSeekerId;
+    String headLine;
     Double experience;
     String highestQualification;
     Boolean availableForHire;

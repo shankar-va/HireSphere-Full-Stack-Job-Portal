@@ -53,8 +53,7 @@ public class Resume {
 
 	@Column(
 			name = "exp",
-			nullable = false,
-			columnDefinition = "Double DEFAULT 0"
+			nullable = false
 	)
 	private Double experience;
 

@@ -8,8 +8,8 @@ import java.util.List;
 @Value
 @Builder
 public class JobSeekerResponse {
-    Integer jobseekerId;
-    String headline;
+    Integer jobSeekerId;
+    String headLine;
     Double experience;
     Double currentSalary;
     Double expectedSalary;

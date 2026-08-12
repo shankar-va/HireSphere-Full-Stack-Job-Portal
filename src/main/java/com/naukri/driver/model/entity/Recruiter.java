@@ -38,12 +38,12 @@ public class Recruiter {
     private String domain;
     @Column(name = "emp_code", nullable = false, unique = true)
     private String employeeCode;
-    @Column(name = "exp", nullable = false, columnDefinition = "Integer DEFAULT 0")
-    private Double experience;
-    @Column(name = "created_At", nullable = false, insertable =             true, updatable = false)
+    @Column(name = "exp", nullable = false)
+    private Double experience=0.0;
+    @Column(name = "created_At", nullable = false, insertable =true, updatable = false)
     @CreationTimestamp
     private LocalDateTime joinedDate;
-    @Column(name = "active", nullable = false, columnDefinition = "Boolean DEFAULT false")
+    @Column(name = "active", nullable = false)
     private Boolean isActive;
     @OneToOne
     private User user;

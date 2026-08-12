@@ -13,10 +13,8 @@ import java.util.List;
 @NoArgsConstructor
 
 public class JobSeekerRegistrationRequest {
-	@NotNull
-	Integer userId;
     @NotBlank
-    private String headline;
+    private String headLine;
     @NotNull
     @PositiveOrZero
     private Double experience;
