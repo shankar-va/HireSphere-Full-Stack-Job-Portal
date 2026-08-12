@@ -31,7 +31,7 @@ import jakarta.persistence.Table;
 public class Company {
 
 	@Id
-	@Column(name = "company_id", unique = true)
+	@Column(name = "company_id", unique = true,updatable = false)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "company_id")
 	@SequenceGenerator(name = "company_id", sequenceName = "seq_com_id", allocationSize = 1)
 	private Integer companyId;

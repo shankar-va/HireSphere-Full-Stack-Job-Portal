@@ -4,6 +4,7 @@ import com.naukri.driver.validation.interfaces.ValidatePassword;
 import com.naukri.driver.validation.interfaces.ValidatePhno;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,10 +21,10 @@ public class UserRegistrationRequest {
 	@NotBlank
 	@Email
 	private String email;
-	@NotBlank
+	@NotNull
 	@ValidatePassword(message = "Password is either weak or Invalid")
 	private String password;
-	@NotBlank
+	@NotNull
 	@ValidatePhno(message = "Please Provide valid Mobile Number")
 	private String phoneNumber;
 }

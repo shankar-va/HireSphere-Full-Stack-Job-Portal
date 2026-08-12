@@ -14,6 +14,9 @@ import com.naukri.driver.repository.CompanyRepository;
 
 import lombok.RequiredArgsConstructor;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 public class CompanyServiceImpl  {
@@ -34,6 +37,9 @@ public class CompanyServiceImpl  {
 	public CompanyResponse getCompanyById(Integer id) {
 		Company company = repository.findById(id).orElseThrow(() -> new CompanyNotFoundException("Company not found"));
 		return companyMapper.toResponseDTO(company);
+	}
+	public List<CompanyResponse> getCompanies(){
+		return repository.findAll().stream().map(companyMapper::toResponseDTO).collect(Collectors.toList());
 	}
 
 	public CompanyResponse updateCompany(CompanyUpdateRequest request) {

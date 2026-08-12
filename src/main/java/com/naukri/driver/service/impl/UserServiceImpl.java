@@ -13,6 +13,9 @@ import lombok.RequiredArgsConstructor;
 
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl {
@@ -21,14 +24,16 @@ public class UserServiceImpl {
 
     public UserResponse register(UserRegistrationRequest request){
         User user=userMapper.toEntity(request);
-        User newUser;
-        if(!(userRepository.existsByEmail(user.getEmail())||userRepository.existsByPhoneNumber(user.getPhoneNumber()))) newUser=userRepository.save(user);
-        else throw new InvalidUserDetailsException("Email or Password Already exists");
+        if((userRepository.existsByEmail(user.getEmail())||userRepository.existsByPhoneNumber(user.getPhoneNumber()))) throw new InvalidUserDetailsException("Email or Password Already exists");
+        User newUser=userRepository.save(user);
         return userMapper.toResponseDTO(newUser);
     }
     public UserResponse getUserById(Integer id){
         User user=userRepository.findById(id).orElseThrow(()-> new UserNotFoundException("User Not Found"));
         return userMapper.toResponseDTO(user);
+    }
+    public List<UserResponse> getUsers(){
+        return userRepository.findAll().stream().map(userMapper::toResponseDTO).collect(Collectors.toList());
     }
     public UserResponse updateUser(UserUpdateRequest request){
 

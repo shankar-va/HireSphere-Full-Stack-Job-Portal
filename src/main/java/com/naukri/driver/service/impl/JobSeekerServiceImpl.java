@@ -31,6 +31,7 @@ import com.naukri.driver.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -48,14 +49,22 @@ public class JobSeekerServiceImpl {
 		JobSeeker newJobSeeker = jobSeekerRepository.save(jobSeeker);
 		return jobSeekerMapper.toResponseDTO(newJobSeeker);
 	}
+	@Transactional(readOnly = true)
 	public JobSeekerResponse getJobSeekerById(Integer id) {
 		JobSeeker jobSeeker = jobSeekerRepository.findById(id).orElseThrow(()->new JobSeekerNotFoundException("Job Seeker Not Found."));
 		return jobSeekerMapper.toResponseDTO(jobSeeker);
 	}
+	@Transactional(readOnly = true)
+	public List<JobSeekerResponse> getJobSeekers(){
+		return jobSeekerRepository.findAll().stream().map(jobSeekerMapper::toResponseDTO).collect(Collectors.toList());
+	}
 	@Transactional
 	public void deleteJobSeeker(Integer id) {
-		JobSeeker jobSeeker = jobSeekerRepository.findById(id).orElseThrow(()->new JobSeekerNotFoundException("Job Seeker Not Found."));
-		jobSeekerRepository.delete(jobSeeker);
+		if(!jobSeekerRepository.existsById(id)) {
+			throw new JobSeekerNotFoundException("Job Seeker Not Found.");
+		}
+		jobSeekerRepository.deleteById(id);
+		jobSeekerRepository.flush();
 	}
 	@Transactional
 	public JobSeekerResponse updateJobSeeker(JobSeekerUpdateRequest request) {
@@ -124,14 +133,19 @@ public class JobSeekerServiceImpl {
 			size = 10;
 		}
 
+		Sort.Direction direction = sortDirection.equalsIgnoreCase("desc")
+				? Sort.Direction.DESC
+				: Sort.Direction.ASC;
+
 		Pageable pageable = PageRequest.of(
 				page,
 				size,
-				Sort.by(sort, sortDirection)
+				Sort.by(direction, sort)
 		);
 
 		return jobSeekerRepository
 				.findAll(specification, pageable)
 				.map(jobSeekerMapper::toResponseDTOSummary);
 	}
+
 }

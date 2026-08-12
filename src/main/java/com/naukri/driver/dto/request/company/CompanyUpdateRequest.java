@@ -22,5 +22,4 @@ public class CompanyUpdateRequest {
 	String email;
 	@ValidatePhno
 	String phoneNumber;
-
 }
