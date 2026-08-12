@@ -30,7 +30,6 @@ public class Resume {
 	@SequenceGenerator(
 			name = "resume_id",
 			sequenceName = "seq_resume_id",
-			initialValue = 1,
 			allocationSize = 1
 	)
 	@Column(name = "resume_id")

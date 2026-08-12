@@ -28,6 +28,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -63,6 +64,10 @@ public class JobApplicationServiceImpl {
         JobApplication jobApplication = jobApplicationRepository.findById(id)
                                                              .orElseThrow(() -> new JobApplicationNotFoundException("Job Application Not Found"));
         return jobApplicationMapper.toResponseDTO(jobApplication);
+    }
+    public List<JobApplicationSummaryResponse> getApplications(Integer id){
+        List<JobApplication> jobApplications = jobApplicationRepository.findByJobSeekerJobSeekerId(id);
+        return jobApplications.stream().map(jobApplicationMapper::toSummaryResponseDTO).collect(Collectors.toList());
     }
     @Transactional
     public JobApplicationResponse withdrawApplication(Integer applicationId){

@@ -18,7 +18,7 @@ import org.hibernate.annotations.CreationTimestamp;
 public class Job {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "job_id")
-	@SequenceGenerator(name = "job_id", sequenceName = "seq_job_id", initialValue = 1, allocationSize = 1)
+	@SequenceGenerator(name = "job_id", sequenceName = "seq_job_id", allocationSize = 1)
 	@Column(name = "job_id")
 	private Integer jobId;
 	@Column(name = "job_title", nullable = false)
@@ -40,7 +40,7 @@ public class Job {
 	private Set<String> preferredLocations;
 	@Column(name = "vacancy", nullable = false, columnDefinition = "Integer DEFAULT 0")
 	private Integer vacancies;
-	@Column(name = "posted_on", nullable = false, insertable = true, updatable = false)
+	@Column(name = "posted_on", nullable = false, updatable = false)
 	@CreationTimestamp
 	private LocalDate postedDate;
 	@Column(name = "deadline", nullable = false)

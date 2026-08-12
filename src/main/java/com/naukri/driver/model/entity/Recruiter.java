@@ -30,7 +30,7 @@ public class Recruiter {
     @Id
     @Column(name = "rec_id", unique = true)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "rec_id")
-    @SequenceGenerator(name = "rec_id", sequenceName = "seq_rec_id", initialValue = 1, allocationSize = 1)
+    @SequenceGenerator(name = "rec_id", sequenceName = "seq_rec_id", allocationSize = 1)
     private Integer recruiterId;
     @Column(name = "designation", nullable = false)
     private String designation;
@@ -40,7 +40,7 @@ public class Recruiter {
     private String employeeCode;
     @Column(name = "exp", nullable = false)
     private Double experience=0.0;
-    @Column(name = "created_At", nullable = false, insertable =true, updatable = false)
+    @Column(name = "created_At", nullable = false,  updatable = false)
     @CreationTimestamp
     private LocalDateTime joinedDate;
     @Column(name = "active", nullable = false)
