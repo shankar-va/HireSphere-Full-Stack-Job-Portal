@@ -10,7 +10,7 @@ import java.util.List;
 public class JobSummaryResponse {
     Integer jobId;
     String title;
-    List<String> preferredLocation;
+    List<String> preferredLocations;
     Integer companyId;
     String companyName;
 }

@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api")
+@RequestMapping("/api/job")
 public class JobController {
     private final JobServiceImpl jobService;
     @PostMapping("/register")
@@ -35,15 +35,15 @@ public class JobController {
                                                               @RequestParam String direction){
         return ResponseEntity.status(HttpStatus.OK).body(jobService.searchJobs(page,size,sort,direction,request));
     }
-    @PatchMapping("/job")
+    @PatchMapping("/update")
     public ResponseEntity<JobResponse> update(@RequestBody @Valid JobUpdateRequest request){
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(jobService.updateJob(request));
     }
-    @DeleteMapping("/job")
+    @DeleteMapping("/delete")
     public void delete(@PathVariable @NotNull Integer id){
         jobService.deleteJob(id);
     }
-    @DeleteMapping("/job/close")
+    @DeleteMapping("/close")
     public ResponseEntity<JobSummaryResponse> close(@PathVariable @NotNull Integer id){
         return ResponseEntity.status(HttpStatus.OK).body(jobService.closeJob(id));
 

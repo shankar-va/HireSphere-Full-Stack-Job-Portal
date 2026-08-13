@@ -12,7 +12,7 @@ public class JobResponse {
     Integer jobId;
     String title;
     String description;
-    List<String> location;
+    List<String> preferredLocations;
     Double minimum_sal;
     Double maximum_sal;
     Double experienceRequired;

@@ -30,5 +30,6 @@ public interface ResumeMapper {
             ResumeUpdateRequest request,
             @MappingTarget Resume resume
     );
+    @Mapping(source = "jobSeeker.jobSeekerId",target = "jobSeekerId")
     ResumeResponse toResponseDTO(Resume resume);
 }

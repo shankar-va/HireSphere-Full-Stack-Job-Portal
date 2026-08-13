@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @RequestMapping("api/recruiter")
 public class RecruiterController {
-    RecruiterServiceImpl recruiterService;
+    private final RecruiterServiceImpl recruiterService;
     @PostMapping("/register")
     public ResponseEntity<RecruiterResponse> register(@RequestBody @Valid RecruiterRegistrationRequest request){
         return ResponseEntity.status(HttpStatus.CREATED).body(recruiterService.register(request));

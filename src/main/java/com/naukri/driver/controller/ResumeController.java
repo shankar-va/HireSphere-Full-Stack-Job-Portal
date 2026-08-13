@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 public class ResumeController {
     private final ResumeServiceImpl resumeService;
     @PostMapping("/register")
-    public ResponseEntity<ResumeResponse> register(ResumeCreateRequest request){
+    public ResponseEntity<ResumeResponse> register(@RequestBody @Valid ResumeCreateRequest request){
         return ResponseEntity.status(HttpStatus.CREATED).body(resumeService.createResume(request));
     }
     @GetMapping("/get/{id}")

@@ -19,6 +19,7 @@ import com.naukri.driver.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -27,7 +28,7 @@ public class RecruiterServiceImpl {
 	private final CompanyRepository companyRepository;
 	private final RecruiterMapper recruiterMapper;
 	private final RecruiterRepository recruiterRepository;
-
+	@Transactional
 	public RecruiterResponse register(RecruiterRegistrationRequest request) {
 		User user = userRepository.findById(request.getUserId())
 				.orElseThrow(() -> new UserNotFoundException("User Not Found"));
@@ -48,7 +49,7 @@ public class RecruiterServiceImpl {
 				.orElseThrow(() -> new RecruiterNotFound("Recruiter Not Found!!!..."));
 		return recruiterMapper.toResponseDTO(recruiter);
 	}
-
+	@Transactional
 	public RecruiterResponse updateRecruiter(RecruiterUpdateRequest request) {
 		Recruiter recruiter = recruiterRepository.findById(request.getRecruiterId())
 				.orElseThrow(() -> new RecruiterNotFound("Recruiter Not Found!!!..."));
@@ -60,7 +61,7 @@ public class RecruiterServiceImpl {
 		recruiterRepository.save(recruiter2);
 		return recruiterMapper.toResponseDTO(recruiter2);
 	}
-
+	@Transactional
 	public void deleteRecruiter(Integer recruiterId) {
 		if (!recruiterRepository.existsById(recruiterId))
 			throw new RecruiterNotFound("Recruiter Not Found!!!...");

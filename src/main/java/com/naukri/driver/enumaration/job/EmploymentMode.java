@@ -1,8 +1,10 @@
 package com.naukri.driver.enumaration.job;
 
 public enum EmploymentMode {
-    Full_Time,
+    FULL_TIME,
     PART_TIME,
     CONTRACT,
-    INTERNSHIP;
+    INTERNSHIP,
+    REMOTE,
+    ONSITE;
 }

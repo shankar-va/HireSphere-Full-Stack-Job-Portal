@@ -24,7 +24,7 @@ public class JobCreateRequest {
 	private Integer companyId;
 	@NotNull
 	private Integer recruiterId;
-	@NotBlank
+	@NotNull
 	private List<EmploymentMode> employmentMode;
 	@PositiveOrZero
 	private Double experienceRequired;
@@ -32,7 +32,7 @@ public class JobCreateRequest {
 	@Future
 	private LocalDate applicationDeadLine;
 	@Singular("location")
-	private List<String> locations;
+	private List<String> preferredLocations;
 	@NotNull
 	@Positive
 	private Integer vacancies;

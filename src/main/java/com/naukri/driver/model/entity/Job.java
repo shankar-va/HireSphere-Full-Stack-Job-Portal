@@ -6,6 +6,7 @@ import java.util.Set;
 import com.naukri.driver.enumaration.job.EmploymentMode;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 
 @Getter
@@ -27,6 +28,11 @@ public class Job {
 	private String description;
 	@Enumerated(EnumType.STRING)
 	@ElementCollection
+	@CollectionTable(
+			name = "job_employment_mode",
+			joinColumns = @JoinColumn(name = "job_info_job_id",nullable = false)
+	)
+	@Column(name = "employment_mode",nullable = false)
 	private Set<EmploymentMode> employmentMode;
 	@Column(name = "min_exp")
 	private Double minimumExperienceRequired;
@@ -37,6 +43,11 @@ public class Job {
 	@Column(name = "max_sal")
 	private Double maximum_sal;
 	@ElementCollection
+	@CollectionTable(
+			name = "job_preferred_locations",
+			joinColumns = @JoinColumn(name = "job_info_job_id", nullable = false)
+	)
+	@Column(name = "location", nullable = false)
 	private Set<String> preferredLocations;
 	@Column(name = "vacancy", nullable = false, columnDefinition = "Integer DEFAULT 0")
 	private Integer vacancies;
@@ -45,8 +56,10 @@ public class Job {
 	private LocalDate postedDate;
 	@Column(name = "deadline", nullable = false)
 	private LocalDate applicationDeadLine;
-	@Column(name = "is_closed",nullable = false,columnDefinition = "Boolean DEFAULT false")
-	private Boolean isClosed;
+	@Builder.Default
+	@ColumnDefault("false")
+	@Column(name = "is_closed",nullable = false)
+	private Boolean isClosed=false;
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Company company;
 	@ManyToOne(fetch = FetchType.LAZY)

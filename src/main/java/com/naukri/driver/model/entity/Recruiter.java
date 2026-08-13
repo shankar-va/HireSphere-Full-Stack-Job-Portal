@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.Set;
 
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 
 import jakarta.persistence.Column;
@@ -43,8 +44,10 @@ public class Recruiter {
     @Column(name = "created_At", nullable = false,  updatable = false)
     @CreationTimestamp
     private LocalDateTime joinedDate;
-    @Column(name = "active", nullable = false)
-    private Boolean isActive;
+    @Builder.Default
+    @ColumnDefault("true")
+    @Column(name = "active",nullable = false)
+    private Boolean isActive=true;
     @OneToOne
     private User user;
     @ManyToOne
