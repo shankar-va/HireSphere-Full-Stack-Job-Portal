@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.naukri.driver.dto.request.jobseeker.JobSeekerRegistrationRequest;
 import com.naukri.driver.dto.request.jobseeker.JobSeekerUpdateRequest;
 import com.naukri.driver.dto.response.jobseeker.JobSeekerResponse;
-import com.naukri.driver.exception.customExceptions.jobSeeker.JobSeekerAlreadyExists;
+import com.naukri.driver.exception.customExceptions.jobSeeker.JobSeekerAlreadyExistsException;
 import com.naukri.driver.exception.customExceptions.jobSeeker.JobSeekerNotFoundException;
 import com.naukri.driver.exception.customExceptions.resume.ResumeNotFoundException;
 import com.naukri.driver.exception.customExceptions.resume.ResumeOwnershipException;
@@ -44,7 +44,7 @@ public class JobSeekerServiceImpl {
 	@Transactional
 	public JobSeekerResponse registerJobSeeker(JobSeekerRegistrationRequest request,Integer userId) {
 		User user = userRepository.findById(userId).orElseThrow(()-> new UserNotFoundException("User Not Found."));
-		if(jobSeekerRepository.existsByUserUserId(userId))throw new JobSeekerAlreadyExists("User already has JobSeeker profile");
+		if(jobSeekerRepository.existsByUserUserId(userId))throw new JobSeekerAlreadyExistsException("User already has JobSeeker profile");
 		JobSeeker jobSeeker = jobSeekerMapper.toEntity(request, user);
 		JobSeeker newJobSeeker = jobSeekerRepository.save(jobSeeker);
 		return jobSeekerMapper.toResponseDTO(newJobSeeker);

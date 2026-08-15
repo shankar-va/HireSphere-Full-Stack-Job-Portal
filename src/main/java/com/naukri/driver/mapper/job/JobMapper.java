@@ -14,7 +14,7 @@ import org.mapstruct.NullValuePropertyMappingStrategy;
 
 @Mapper(componentModel = "spring",nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 public interface JobMapper {
-    @Mapping(source = "request.preferredLocations", target = "preferredLocations")
+    @Mapping( target = "preferredLocations", expression = "java(request.getPreferredLocations() != null ? new java.util.ArrayList<>(request.getPreferredLocations()) : null)")
     @Mapping(source = "request.employmentMode", target = "employmentMode")
     @Mapping(source = "company",target = "company")
     @Mapping(source = "recruiter", target = "recruiter")

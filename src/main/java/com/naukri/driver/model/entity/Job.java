@@ -1,6 +1,7 @@
 package com.naukri.driver.model.entity;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Set;
 
 import com.naukri.driver.enumaration.job.EmploymentMode;
@@ -48,7 +49,7 @@ public class Job {
 			joinColumns = @JoinColumn(name = "job_info_job_id", nullable = false)
 	)
 	@Column(name = "location", nullable = false)
-	private Set<String> preferredLocations;
+	private List<String> preferredLocations;
 	@Column(name = "vacancy", nullable = false, columnDefinition = "Integer DEFAULT 0")
 	private Integer vacancies;
 	@Column(name = "posted_on", nullable = false, updatable = false)

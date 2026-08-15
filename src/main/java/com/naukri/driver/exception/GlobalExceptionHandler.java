@@ -29,7 +29,7 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(error,HttpStatus.UNPROCESSABLE_ENTITY);
     }
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ErrorResponseDTO> exception(MethodArgumentNotValidException ex, HttpServletRequest request){
-        return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body(ErrorResponseDTO.builder().timestamp(LocalDate.now()).status(HttpStatus.SERVICE_UNAVAILABLE.value()).message("The requested resource not found").path(request.getRequestURI()).build());
+    public ResponseEntity<ErrorResponseDTO> exception(Exception ex, HttpServletRequest request){
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ErrorResponseDTO.builder().timestamp(LocalDate.now()).status(HttpStatus.NOT_FOUND.value()).message(ex.getMessage()).path(request.getRequestURI()).build());
     }
 }

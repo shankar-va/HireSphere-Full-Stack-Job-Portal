@@ -5,8 +5,8 @@ import com.naukri.driver.dto.request.recruiter.RecruiterUpdateRequest;
 import com.naukri.driver.dto.response.recruiter.RecruiterResponse;
 import com.naukri.driver.exception.customExceptions.company.CompanyNotFoundException;
 import com.naukri.driver.exception.customExceptions.recruiter.RecruiterEmployeeCodeExistsException;
-import com.naukri.driver.exception.customExceptions.recruiter.RecruiterNotFound;
-import com.naukri.driver.exception.customExceptions.recruiter.RecruiterUserExists;
+import com.naukri.driver.exception.customExceptions.recruiter.RecruiterNotFoundException;
+import com.naukri.driver.exception.customExceptions.recruiter.RecruiterUserExistsException;
 import com.naukri.driver.exception.customExceptions.user.UserNotFoundException;
 import com.naukri.driver.mapper.recruiter.RecruiterMapper;
 import com.naukri.driver.model.entity.Company;
@@ -38,7 +38,7 @@ public class RecruiterServiceImpl {
 		if (recruiterRepository.existsByEmployeeCode(request.getEmployeeCode()))
 			throw new RecruiterEmployeeCodeExistsException("Employee code already exists!!!...");
 		if(recruiterRepository.existsByUserUserId(request.getUserId()))
-			throw  new RecruiterUserExists("User can have only one recruiter profile");
+			throw  new RecruiterUserExistsException("User can have only one recruiter profile");
 		Recruiter recruiter = recruiterMapper.toEntity(request, user, company);
 		Recruiter recruiter1 = recruiterRepository.save(recruiter);
 		return recruiterMapper.toResponseDTO(recruiter1);
@@ -46,13 +46,13 @@ public class RecruiterServiceImpl {
 
 	public RecruiterResponse getRecruiterById(Integer id) {
 		Recruiter recruiter = recruiterRepository.findById(id)
-				.orElseThrow(() -> new RecruiterNotFound("Recruiter Not Found!!!..."));
+				.orElseThrow(() -> new RecruiterNotFoundException("Recruiter Not Found!!!..."));
 		return recruiterMapper.toResponseDTO(recruiter);
 	}
 	@Transactional
 	public RecruiterResponse updateRecruiter(RecruiterUpdateRequest request) {
 		Recruiter recruiter = recruiterRepository.findById(request.getRecruiterId())
-				.orElseThrow(() -> new RecruiterNotFound("Recruiter Not Found!!!..."));
+				.orElseThrow(() -> new RecruiterNotFoundException("Recruiter Not Found!!!..."));
 		if (request.getEmployeeCode() != null)
 			if (recruiterRepository.existsByEmployeeCodeAndRecruiterIdNot(request.getEmployeeCode(),
 					request.getRecruiterId()))
@@ -64,7 +64,7 @@ public class RecruiterServiceImpl {
 	@Transactional
 	public void deleteRecruiter(Integer recruiterId) {
 		if (!recruiterRepository.existsById(recruiterId))
-			throw new RecruiterNotFound("Recruiter Not Found!!!...");
+			throw new RecruiterNotFoundException("Recruiter Not Found!!!...");
 		recruiterRepository.deleteById(recruiterId);
 	}
 }

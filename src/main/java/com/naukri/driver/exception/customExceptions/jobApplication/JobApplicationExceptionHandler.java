@@ -16,13 +16,14 @@ public class JobApplicationExceptionHandler {
                                                                                    .build();
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
     }
-    @ExceptionHandler(JobApplicationClosedException.class)
+    @ExceptionHandler(JobApplicationCrossedDeadlineException.class)
     public ResponseEntity<ErrorResponseDTO> jobApplicationDeadLineCrossed(JobApplicationCrossedDeadlineException exception, HttpServletRequest request){
         ErrorResponseDTO error = (ErrorResponseDTO.builder().status(HttpStatus.NOT_FOUND.value())
                                                   .message(exception.getMessage())).path(request.getRequestURI())
                                                                                    .build();
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
-    }@ExceptionHandler(JobApplicationDuplicationException.class)
+    }
+    @ExceptionHandler(JobApplicationDuplicationException.class)
     public ResponseEntity<ErrorResponseDTO> jobApplicationDuplicate(JobApplicationDuplicationException exception, HttpServletRequest request){
         ErrorResponseDTO error = (ErrorResponseDTO.builder().status(HttpStatus.ALREADY_REPORTED.value())
                                                   .message(exception.getMessage())).path(request.getRequestURI())

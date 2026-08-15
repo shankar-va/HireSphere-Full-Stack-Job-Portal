@@ -10,7 +10,7 @@ import com.naukri.driver.exception.customExceptions.job.JobInvalidRecruiterToCom
 import com.naukri.driver.exception.customExceptions.job.JobInvalidSalaryRangeException;
 import com.naukri.driver.exception.customExceptions.job.JobInvalidSortingException;
 import com.naukri.driver.exception.customExceptions.job.JobNotFoundException;
-import com.naukri.driver.exception.customExceptions.recruiter.RecruiterNotFound;
+import com.naukri.driver.exception.customExceptions.recruiter.RecruiterNotFoundException;
 import com.naukri.driver.mapper.job.JobMapper;
 import com.naukri.driver.model.entity.Company;
 import com.naukri.driver.model.entity.Job;
@@ -45,7 +45,7 @@ public class JobServiceImpl {
             throw new CompanyNotFoundException("Company Not Found");
         }
         if (request.getRecruiterId() == null) {
-            throw new RecruiterNotFound("Recruiter Not found");
+            throw new RecruiterNotFoundException("Recruiter Not found");
         }
 
         // 2. Salary Range Validation
@@ -59,7 +59,7 @@ public class JobServiceImpl {
         Company company = companyRepository.findById(request.getCompanyId())
                                            .orElseThrow(() -> new CompanyNotFoundException("Invalid companyID"));
         Recruiter recruiter = recruiterRepository.findById(request.getRecruiterId())
-                                                 .orElseThrow(() -> new RecruiterNotFound("Invalid recruiterID"));
+                                                 .orElseThrow(() -> new RecruiterNotFoundException("Invalid recruiterID"));
 
         // 4. Validate Relationship BEFORE building the Entity (Moved Up & Fixed Lazy Access)
         if (recruiter.getCompany() == null || !recruiter.getCompany().getCompanyId().equals(company.getCompanyId())) {
@@ -118,7 +118,8 @@ public class JobServiceImpl {
                 "minimum_sal",
                 "maximum_sal",
                 "vacancies",
-                "applicationDeadLine");
+                "applicationDeadLine",
+                "preferredLocations");
         if(sort==null|| ! sortOrder.contains(sort))throw new JobInvalidSortingException("Invalid sort field");
         if (page==null||page<0)page=0;
         if(size==null||size<=0)size=10;

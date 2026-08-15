@@ -27,7 +27,7 @@ public class JobApplication {
 	@Enumerated(value = EnumType.STRING)
 	private ApplicationStatus status;
 	@Column(name = "cv", nullable = false)
-	private String coverletter;
+	private String coverLetter;
 	@Column(name = "join_date")
 	private LocalDate expectedJoinDate;
 	@Column(name = "interview_date")
