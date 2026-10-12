@@ -16,6 +16,8 @@ import lombok.NoArgsConstructor;
 @Builder
 public class UserRegistrationRequest {
 	@NotBlank
+	private String username;
+	@NotBlank
 	private String firstName;
 	private String lastName;
 	@NotBlank
