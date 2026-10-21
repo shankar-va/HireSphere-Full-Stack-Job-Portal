@@ -11,7 +11,7 @@ import com.hiresphere.driver.repository.UserRepository;
 
 import com.hiresphere.driver.security.CustomUserDetails;
 
-import com.hiresphere.driver.security.JwtService;
+import com.hiresphere.driver.security.jwt.JwtService;
 
 import com.hiresphere.driver.service.impl.auth.refreshToken.RefreshTokenService;
 
@@ -56,8 +56,11 @@ public class AuthenticationService {
 
     public AuthenticationResult login(String email, String password) {
 
+        UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(email, password);
 
-        Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, password));
+        Authentication authenticate = authenticationManager.authenticate(authToken);
+
+        System.out.println("Authenticated user is found and verified!!!");
 
         UserDetails principal = (UserDetails) authenticate.getPrincipal();
 

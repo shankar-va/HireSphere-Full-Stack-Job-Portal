@@ -77,7 +77,7 @@ public class CustomUserDetails implements UserDetails {
     public String getUsername() {
 
 
-        return user.getUsername();
+        return user.getEmail();
 
     }
 

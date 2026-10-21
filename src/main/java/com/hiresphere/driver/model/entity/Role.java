@@ -8,6 +8,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 
+import java.util.HashSet;
 import java.util.Set;
 
 
@@ -50,9 +51,9 @@ public class Role {
 
     @ManyToMany
 
-    @Column(name = "privilege_id")
+    @JoinTable(name = "role_info_privileges",joinColumns = @JoinColumn(name = "role_id"),inverseJoinColumns = @JoinColumn(name = "privilege_id"))
 
-    private Set<Privilege> privileges;
+    private Set<Privilege> privileges=new HashSet<>();
 
 
 }

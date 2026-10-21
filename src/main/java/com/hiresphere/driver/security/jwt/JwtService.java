@@ -1,4 +1,4 @@
-package com.hiresphere.driver.security;
+package com.hiresphere.driver.security.jwt;
 
 
 import io.jsonwebtoken.Claims;
@@ -10,8 +10,6 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 
 import io.jsonwebtoken.security.Keys;
-
-import lombok.RequiredArgsConstructor;
 
 import org.springframework.beans.factory.annotation.Value;
 

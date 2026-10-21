@@ -1,4 +1,4 @@
-package com.hiresphere.driver.security;
+package com.hiresphere.driver.security.jwt;
 
 
 import io.jsonwebtoken.JwtException;
@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpServletRequest;
 
 import jakarta.servlet.http.HttpServletResponse;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -30,11 +31,11 @@ import java.util.List;
 
 
 @Component
-
+@RequiredArgsConstructor
 public class JwtFilter extends OncePerRequestFilter {
 
 
-    JwtService jwtService;
+    private final JwtService jwtService;
 
 
 

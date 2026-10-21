@@ -1,9 +1,8 @@
 package com.hiresphere.driver.security;
 
 
+import com.hiresphere.driver.security.jwt.JwtFilter;
 import lombok.RequiredArgsConstructor;
-
-import org.mapstruct.BeanMapping;
 
 import org.springframework.context.annotation.Bean;
 

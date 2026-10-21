@@ -5,13 +5,7 @@ import com.hiresphere.driver.enumaration.role.Privileges;
 
 import jakarta.persistence.*;
 
-import lombok.AllArgsConstructor;
-
-import lombok.Getter;
-
-import lombok.NoArgsConstructor;
-
-import lombok.Setter;
+import lombok.*;
 
 
 @Entity
@@ -25,6 +19,8 @@ import lombok.Setter;
 @AllArgsConstructor
 
 @NoArgsConstructor
+
+@Builder
 
 public class Privilege {
 
@@ -40,9 +36,12 @@ public class Privilege {
     private Long privilege_id;
 
 
-    @Column(name = "privilege")
+    @Column(name = "privilege",nullable = false,unique = true)
+    @Enumerated(EnumType.STRING)
 
-    private Privileges privilege;
+    @Builder.Default
+
+    private Privileges privilege=Privileges.PROFILE_READ;
 
 
 }

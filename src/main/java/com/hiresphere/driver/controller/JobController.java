@@ -101,7 +101,7 @@ public class JobController {
 
 
 
-    @DeleteMapping("/delete")
+    @DeleteMapping("/delete/{id}")
 
     public void delete(@PathVariable @NotNull Integer id) {
 
@@ -112,7 +112,7 @@ public class JobController {
 
 
 
-    @DeleteMapping("/close")
+    @DeleteMapping("/close/{id}")
 
     public ResponseEntity<JobSummaryResponse> close(@PathVariable @NotNull Integer id) {
 

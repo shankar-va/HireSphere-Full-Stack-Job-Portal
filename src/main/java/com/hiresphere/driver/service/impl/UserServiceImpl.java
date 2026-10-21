@@ -7,6 +7,7 @@ import com.hiresphere.driver.dto.request.user.UserUpdateRequest;
 
 import com.hiresphere.driver.dto.response.user.UserResponse;
 
+import com.hiresphere.driver.enumaration.role.Roles;
 import com.hiresphere.driver.exception.customExceptions.user.InvalidUserDetailsException;
 
 import com.hiresphere.driver.exception.customExceptions.user.UserNotFoundException;
@@ -21,11 +22,13 @@ import com.hiresphere.driver.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 
 import java.util.List;
 
+import java.util.Set;
 import java.util.stream.Collectors;
 
 
@@ -41,7 +44,7 @@ public class UserServiceImpl {
 
     private final UserRepository userRepository;
 
-
+    private final PasswordEncoder passwordEncoder;
 
     public UserResponse register(UserRegistrationRequest request) {
 
@@ -51,7 +54,7 @@ public class UserServiceImpl {
         if ((userRepository.existsByEmail(user.getEmail()) || userRepository.existsByPhoneNumber(user.getPhoneNumber())))
 
             throw new InvalidUserDetailsException("Email or Password Already exists");
-
+        user.setPassword(passwordEncoder.encode(request.getPassword()));
         User newUser = userRepository.save(user);
 
         return userMapper.toResponseDTO(newUser);

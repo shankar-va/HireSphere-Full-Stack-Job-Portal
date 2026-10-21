@@ -106,7 +106,7 @@ public class JobApplicationController {
 
     @PutMapping("/update")
 
-    public ResponseEntity<JobApplicationResponse> update(ApplicationStatusUpdateRequest request) {
+    public ResponseEntity<JobApplicationResponse> update(@RequestBody @Valid ApplicationStatusUpdateRequest request) {
 
 
         return ResponseEntity.status(HttpStatus.ACCEPTED)

@@ -60,7 +60,7 @@ public class AuthController {
 
     private final UserServiceImpl userService;
 
-
+    private static final String REFRESH_TOKEN="refresh-token";
 
     @PostMapping("/register")
 
@@ -77,7 +77,7 @@ public class AuthController {
 
     @PostMapping("/login")
 
-    public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest request, HttpServletResponse response) {
+    public ResponseEntity<LoginResponse> login(@RequestBody @Valid LoginRequest request, HttpServletResponse response) {
 
 
         AuthenticationResult login = service.login(request.email(), request.password());
@@ -158,7 +158,7 @@ public class AuthController {
     private void setRefreshTokenService(HttpServletResponse response, String refreshToken) {
 
 
-        ResponseCookie cookie = ResponseCookie.from("refresh-Token", refreshToken)
+        ResponseCookie cookie = ResponseCookie.from(REFRESH_TOKEN, refreshToken)
 
                                               .httpOnly(true)
 
@@ -181,7 +181,7 @@ public class AuthController {
     private void clearRefreshToken(HttpServletResponse response) {
 
 
-        ResponseCookie cookie = ResponseCookie.from("refresh-token", "")
+        ResponseCookie cookie = ResponseCookie.from(REFRESH_TOKEN, "")
 
                                               .sameSite("Strict")
 
