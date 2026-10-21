@@ -10,11 +10,11 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 
-	<groupId>com.Naukri</groupId>
-	<artifactId>Naukri_</artifactId>
+	<groupId>com.HireSphere</groupId>
+	<artifactId>HireSphere-Full-Stack-Job-Portal</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>Naukri_</name>
-	<description>Spring Boot application for Naukri project</description>
+	<name>HireSphere</name>
+	<description>Spring Boot application for Hiring candidates through online</description>
 	<packaging>jar</packaging>
 
 	<properties>
@@ -67,6 +67,8 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
+		<!-- DevTools: Handles automatic restarts and fast development cycles -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
@@ -105,6 +107,20 @@
 			<version>0.12.6</version>
 			<scope>runtime</scope>
 		</dependency>
+
+		<!-- 4. OpenAPI / Swagger Documentation -->
+		<!-- Generates API specs and exposes the interactive Swagger UI interface -->
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+			<version>2.6.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
 	</dependencies>
 
 	<build>

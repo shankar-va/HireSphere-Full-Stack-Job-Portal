@@ -87,7 +87,8 @@ public class RefreshTokenService {
 
                                                 .build();
 
-        repository.save(refreshToken);
+        RefreshToken savedToken = repository.saveAndFlush(refreshToken);
+        System.out.println("Refresh token saved with ID: " + savedToken.getRefreshId());
 
         return new GeneratedRefreshToken(rawToken, refreshToken);
 

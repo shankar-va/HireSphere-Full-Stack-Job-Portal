@@ -1,6 +1,8 @@
 package com.hiresphere.driver.security;
 
 
+import com.hiresphere.driver.security.OAuth2.CustomOAuth2UserService;
+import com.hiresphere.driver.security.OAuth2.OAuth2LoginSuccessHandler;
 import com.hiresphere.driver.security.jwt.JwtFilter;
 import lombok.RequiredArgsConstructor;
 
@@ -29,7 +31,6 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
-
 import org.springframework.security.web.SecurityFilterChain;
 
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -58,14 +59,11 @@ public class SecurityConfig {
     private final JwtFilter jwtFilter;
 
 
-    @Bean
+    private final CustomOAuth2UserService customOAuth2UserService;
 
-    public PasswordEncoder passwordEncoder() {
+    private final OAuth2LoginSuccessHandler loginSuccessHandler;
 
-
-        return new BCryptPasswordEncoder(12);
-
-    }
+    private final AuthConfig authConfig;
 
 
     @Bean
@@ -77,21 +75,12 @@ public class SecurityConfig {
 
         provider.setUserDetailsService(service);
 
-        provider.setPasswordEncoder(passwordEncoder());
+        provider.setPasswordEncoder(authConfig.passwordEncoder());
 
         return provider;
 
     }
 
-
-    @Bean
-
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
-
-
-        return configuration.getAuthenticationManager();
-
-    }
 
 
     @Bean
@@ -109,14 +98,14 @@ public class SecurityConfig {
 
                    .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 
-                   .authorizeHttpRequests(auth -> auth.requestMatchers("/auth/**")
+                   .authorizeHttpRequests(auth -> auth.requestMatchers("/auth/**","/swagger-ui/**","/v3/**")
 
                                                       .permitAll()
 
                                                       .anyRequest()
 
                                                       .authenticated())
-
+                    .oauth2Login(oauth2->oauth2.userInfoEndpoint(userInfo->userInfo.userService(customOAuth2UserService)).successHandler(loginSuccessHandler))
                    .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
 
                    .build();
