@@ -1,0 +1,107 @@
+package com.hiresphere.driver.model.entity;
+
+
+import jakarta.persistence.*;
+
+import lombok.*;
+
+
+import java.util.List;
+
+import java.util.Set;
+
+
+@Getter
+
+@Setter
+
+@AllArgsConstructor
+
+@NoArgsConstructor
+
+@Builder
+
+@Entity
+
+@Table(name = "job_seeker_info", indexes = {@Index(name = "idx_seeker_id", columnList = "job_seeker_id"),
+
+        @Index(name = "idx_exp", columnList = "exp")})
+
+public class JobSeeker {
+
+
+    @Id
+
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "job_seeker_id")
+
+    @SequenceGenerator(name = "job_seeker_id", sequenceName = "seq_job_seeker", allocationSize = 1)
+
+    @Column(name = "job_seeker_id")
+
+    private Integer jobSeekerId;
+
+
+    @Column(name = "description")
+
+    private String headLine;
+
+
+    @Column(name = "exp", nullable = false)
+
+    private Double experience = 0.0;
+
+
+    @Column(name = "curr_sal", nullable = false)
+
+    private Double currentSalary;
+
+
+    @Column(name = "expect_sal")
+
+    private Double expectedSalary;
+
+
+    @ElementCollection
+
+    @CollectionTable(
+
+            name = "job_seeker_preferred_locations", joinColumns = @JoinColumn(name = "job_seeker_id")
+
+    )
+
+    @Column(name = "location")
+
+    private List<String> preferredLocation;
+
+
+    @Column(name = "qualification", nullable = false)
+
+    private String highestQualification;
+
+
+    @Column(name = "available", nullable = false, columnDefinition = "Boolean DEFAULT true")
+
+    private Boolean availableForHire;
+
+
+    @OneToOne
+
+    @JoinColumn(name = "user_id", nullable = false, unique = true)
+
+    private User user;
+
+
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, orphanRemoval = true, mappedBy = "jobSeeker")
+
+    private Resume resume;
+
+
+    @Singular("jobApplication")
+
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}, orphanRemoval = true, mappedBy = "jobSeeker")
+
+    private Set<JobApplication> jobApplications;
+
+
+}
+

@@ -1,0 +1,42 @@
+package com.hiresphere.driver.mapper.company;
+
+
+import com.hiresphere.driver.dto.request.company.CompanyRegistrationRequest;
+
+import com.hiresphere.driver.dto.request.company.CompanyUpdateRequest;
+
+import com.hiresphere.driver.dto.response.company.CompanyResponse;
+
+import com.hiresphere.driver.dto.response.company.CompanySummaryResponse;
+
+import com.hiresphere.driver.model.entity.Company;
+
+import org.mapstruct.Mapper;
+
+import org.mapstruct.MappingTarget;
+
+import org.mapstruct.NullValuePropertyMappingStrategy;
+
+
+@Mapper(componentModel = "spring", nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+
+public interface CompanyMapper {
+
+
+    Company toEntity(CompanyRegistrationRequest request);
+
+
+
+    Company toUpdateEntity(CompanyUpdateRequest request, @MappingTarget Company company);
+
+
+
+    CompanyResponse toResponseDTO(Company company);
+
+
+
+    CompanySummaryResponse toResponseDTOSummary(Company company);
+
+
+}
+

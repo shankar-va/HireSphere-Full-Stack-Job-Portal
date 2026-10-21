@@ -1,0 +1,309 @@
+package com.hiresphere.driver.service.impl;
+
+
+import com.hiresphere.driver.dto.request.job.JobCreateRequest;
+
+import com.hiresphere.driver.dto.request.job.JobSearchRequest;
+
+import com.hiresphere.driver.dto.request.job.JobUpdateRequest;
+
+import com.hiresphere.driver.dto.response.job.JobResponse;
+
+import com.hiresphere.driver.dto.response.job.JobSummaryResponse;
+
+import com.hiresphere.driver.exception.customExceptions.company.CompanyNotFoundException;
+
+import com.hiresphere.driver.exception.customExceptions.job.JobInvalidRecruiterToCompanyException;
+
+import com.hiresphere.driver.exception.customExceptions.job.JobInvalidSalaryRangeException;
+
+import com.hiresphere.driver.exception.customExceptions.job.JobInvalidSortingException;
+
+import com.hiresphere.driver.exception.customExceptions.job.JobNotFoundException;
+
+import com.hiresphere.driver.exception.customExceptions.recruiter.RecruiterNotFoundException;
+
+import com.hiresphere.driver.mapper.job.JobMapper;
+
+import com.hiresphere.driver.model.entity.Company;
+
+import com.hiresphere.driver.model.entity.Job;
+
+import com.hiresphere.driver.model.entity.Recruiter;
+
+import com.hiresphere.driver.repository.CompanyRepository;
+
+import com.hiresphere.driver.repository.JobRepository;
+
+import com.hiresphere.driver.repository.RecruiterRepository;
+
+import com.hiresphere.driver.specification.job.BuildJobSpecification;
+
+import lombok.RequiredArgsConstructor;
+
+import org.springframework.data.domain.Page;
+
+import org.springframework.data.domain.PageRequest;
+
+import org.springframework.data.domain.Pageable;
+
+import org.springframework.data.domain.Sort;
+
+import org.springframework.data.jpa.domain.Specification;
+
+import org.springframework.stereotype.Service;
+
+import org.springframework.transaction.annotation.Transactional;
+
+
+import java.util.List;
+
+
+@Service
+
+@RequiredArgsConstructor
+
+public class JobServiceImpl {
+
+
+    private final CompanyRepository companyRepository;
+
+
+    private final RecruiterRepository recruiterRepository;
+
+
+    private final JobRepository jobRepository;
+
+
+    private final JobMapper jobMapper;
+
+
+    private final BuildJobSpecification jobSpecification;
+
+
+
+    @Transactional// 💡 Crucial: Forces Hibernate to physically COMMIT the data to PostgreSQL
+
+    public JobResponse createJob(JobCreateRequest request) {
+
+        // 1. Basic ID Null Checks
+
+        if (request.getCompanyId() == null) {
+
+            throw new CompanyNotFoundException("Company Not Found");
+
+        }
+
+        if (request.getRecruiterId() == null) {
+
+            throw new RecruiterNotFoundException("Recruiter Not found");
+
+        }
+
+
+        // 2. Salary Range Validation
+
+        if (request.getMinimum_sal() != null && request.getMaximum_sal() != null) {
+
+            if (request.getMinimum_sal() > request.getMaximum_sal()) {
+
+                throw new JobInvalidSalaryRangeException("Minimum Salary Cannot exceed Maximum Salary");
+
+            }
+
+        }
+
+
+        // 3. Database Lookups
+
+        Company company = companyRepository.findById(request.getCompanyId())
+
+                                           .orElseThrow(() -> new CompanyNotFoundException("Invalid companyID"));
+
+        Recruiter recruiter = recruiterRepository.findById(request.getRecruiterId())
+
+                                                 .orElseThrow(() -> new RecruiterNotFoundException("Invalid recruiterID"));
+
+
+        // 4. Validate Relationship BEFORE building the Entity (Moved Up & Fixed Lazy Access)
+
+        if (recruiter.getCompany() == null || !recruiter.getCompany()
+
+                                                        .getCompanyId()
+
+                                                        .equals(company.getCompanyId())) {
+
+            throw new JobInvalidRecruiterToCompanyException("Recruiter does not belong to the required Company");
+
+        }
+
+
+        // 5. Convert DTO to Managed Entity
+
+        Job jobEntity = jobMapper.toEntity(request, company, recruiter);
+
+
+        // 6. Physically Save and Flush to Database
+
+        Job newJob = jobRepository.saveAndFlush(jobEntity); // Using saveAndFlush forces an immediate INSERT query
+
+
+        // 7. Map back to populated response payload cleanly
+
+        return jobMapper.toResponseDTO(newJob);
+
+    }
+
+
+
+    @Transactional(readOnly = true)
+
+    public JobResponse getJobById(Integer id) {
+
+
+        Job job = jobRepository.findById(id)
+
+                               .orElseThrow(() -> new JobNotFoundException("Job Not Found"));
+
+        return jobMapper.toResponseDTO(job);
+
+    }
+
+
+
+    @Transactional
+
+    public JobResponse updateJob(JobUpdateRequest request) {
+
+
+        Job job = jobRepository.findById((request.getJobId()))
+
+                               .orElseThrow(() -> new JobNotFoundException("Job Not Found"));
+
+        Double newMin = request.getMinimum_sal() != null
+
+                ? request.getMinimum_sal()
+
+                : job.getMinimum_sal();
+
+
+        Double newMax = request.getMaximum_sal() != null
+
+                ? request.getMaximum_sal()
+
+                : job.getMaximum_sal();
+
+        if (newMin != null && newMax != null) {
+
+            if (newMin > newMax)
+
+                throw new JobInvalidSalaryRangeException("Minimum Salary Cannot exceed Maximum Salary");
+
+        }
+
+
+        Job updatedJob = jobMapper.toUpdateJob(request, job);
+
+        Job savedJob = jobRepository.save(updatedJob);
+
+        return jobMapper.toResponseDTO(savedJob);
+
+    }
+
+
+
+    @Transactional
+
+    public void deleteJob(Integer jobId) {
+
+
+        if (!jobRepository.existsById(jobId)) throw new JobNotFoundException("Job Not Found");
+
+        jobRepository.deleteById(jobId);
+
+    }
+
+
+
+    @Transactional(readOnly = true)
+
+    public Page<JobSummaryResponse> searchJobs(Integer page, Integer size, String sort, String sortDirection, JobSearchRequest request) {
+
+
+        Specification<Job> specification = jobSpecification.buildJobSpecification(request);
+
+        if (sortDirection == null || sortDirection.isBlank()) sortDirection = "asc";
+
+        if (!(sortDirection.equalsIgnoreCase("asc") || sortDirection.equalsIgnoreCase("desc")))
+
+            throw new JobInvalidSortingException("Provide Valid Sorting format");
+
+        List<String> sortOrder = List.of("title",
+
+                "postedDate",
+
+                "minimumExperienceRequired",
+
+                "maximumExperienceRequired",
+
+                "minimum_sal",
+
+                "maximum_sal",
+
+                "vacancies",
+
+                "applicationDeadLine",
+
+                "preferredLocations");
+
+        if (sort == null || !sortOrder.contains(sort)) throw new JobInvalidSortingException("Invalid sort field");
+
+        if (page == null || page < 0) page = 0;
+
+        if (size == null || size <= 0) size = 10;
+
+        Sort sortBy = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sort)
+
+                                                                                      .ascending() : Sort.by(sort)
+
+                                                                                                         .descending();
+
+        Pageable pageRequest = PageRequest.of(
+
+                page,
+
+                size,
+
+                sortBy
+
+        );
+
+        return jobRepository.findAll(specification, pageRequest)
+
+                            .map(jobMapper::toResponseDTOSummary);
+
+
+    }
+
+
+
+    @Transactional()
+
+    public JobSummaryResponse closeJob(Integer jobId) {
+
+
+        Job job = jobRepository.findById(jobId)
+
+                               .orElseThrow(() -> new JobNotFoundException("Job Not Found"));
+
+        job.setIsClosed(true);
+
+        Job newJob = jobRepository.save(job);
+
+        return jobMapper.toResponseDTOSummary(newJob);
+
+    }
+
+
+}
+

@@ -1,0 +1,150 @@
+package com.hiresphere.driver.service.impl;
+
+
+import com.hiresphere.driver.dto.request.recruiter.RecruiterRegistrationRequest;
+
+import com.hiresphere.driver.dto.request.recruiter.RecruiterUpdateRequest;
+
+import com.hiresphere.driver.dto.response.recruiter.RecruiterResponse;
+
+import com.hiresphere.driver.exception.customExceptions.company.CompanyNotFoundException;
+
+import com.hiresphere.driver.exception.customExceptions.recruiter.RecruiterEmployeeCodeExistsException;
+
+import com.hiresphere.driver.exception.customExceptions.recruiter.RecruiterNotFoundException;
+
+import com.hiresphere.driver.exception.customExceptions.recruiter.RecruiterUserExistsException;
+
+import com.hiresphere.driver.exception.customExceptions.user.UserNotFoundException;
+
+import com.hiresphere.driver.mapper.recruiter.RecruiterMapper;
+
+import com.hiresphere.driver.model.entity.Company;
+
+import com.hiresphere.driver.model.entity.Recruiter;
+
+import com.hiresphere.driver.model.entity.User;
+
+import com.hiresphere.driver.repository.CompanyRepository;
+
+import com.hiresphere.driver.repository.RecruiterRepository;
+
+import com.hiresphere.driver.repository.UserRepository;
+
+
+import lombok.RequiredArgsConstructor;
+
+
+import org.springframework.stereotype.Service;
+
+import org.springframework.transaction.annotation.Transactional;
+
+
+@Service
+
+@RequiredArgsConstructor
+
+public class RecruiterServiceImpl {
+
+
+    private final UserRepository userRepository;
+
+
+    private final CompanyRepository companyRepository;
+
+
+    private final RecruiterMapper recruiterMapper;
+
+
+    private final RecruiterRepository recruiterRepository;
+
+
+
+    @Transactional
+
+    public RecruiterResponse register(RecruiterRegistrationRequest request) {
+
+
+        User user = userRepository.findById(request.getUserId())
+
+                                  .orElseThrow(() -> new UserNotFoundException("User Not Found"));
+
+        Company company = companyRepository.findById(request.getCompanyId())
+
+                                           .orElseThrow(() -> new CompanyNotFoundException("Company Not Found"));
+
+
+        if (recruiterRepository.existsByEmployeeCode(request.getEmployeeCode()))
+
+            throw new RecruiterEmployeeCodeExistsException("Employee code already exists!!!...");
+
+        if (recruiterRepository.existsByUserUserId(request.getUserId()))
+
+            throw new RecruiterUserExistsException("User can have only one recruiter profile");
+
+        Recruiter recruiter = recruiterMapper.toEntity(request, user, company);
+
+        Recruiter recruiter1 = recruiterRepository.save(recruiter);
+
+        return recruiterMapper.toResponseDTO(recruiter1);
+
+    }
+
+
+
+    public RecruiterResponse getRecruiterById(Integer id) {
+
+
+        Recruiter recruiter = recruiterRepository.findById(id)
+
+                                                 .orElseThrow(() -> new RecruiterNotFoundException("Recruiter Not Found!!!..."));
+
+        return recruiterMapper.toResponseDTO(recruiter);
+
+    }
+
+
+
+    @Transactional
+
+    public RecruiterResponse updateRecruiter(RecruiterUpdateRequest request) {
+
+
+        Recruiter recruiter = recruiterRepository.findById(request.getRecruiterId())
+
+                                                 .orElseThrow(() -> new RecruiterNotFoundException("Recruiter Not Found!!!..."));
+
+        if (request.getEmployeeCode() != null)
+
+            if (recruiterRepository.existsByEmployeeCodeAndRecruiterIdNot(request.getEmployeeCode(),
+
+                    request.getRecruiterId()))
+
+                throw new RecruiterEmployeeCodeExistsException("Employee code already belongs to another recruiter");
+
+        Recruiter recruiter2 = recruiterMapper.toUpdateRecruiter(request, recruiter);
+
+        recruiterRepository.save(recruiter2);
+
+        return recruiterMapper.toResponseDTO(recruiter2);
+
+    }
+
+
+
+    @Transactional
+
+    public void deleteRecruiter(Integer recruiterId) {
+
+
+        if (!recruiterRepository.existsById(recruiterId))
+
+            throw new RecruiterNotFoundException("Recruiter Not Found!!!...");
+
+        recruiterRepository.deleteById(recruiterId);
+
+    }
+
+
+}
+
