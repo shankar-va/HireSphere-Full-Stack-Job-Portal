@@ -594,7 +594,7 @@ Aspiring Software Developer | Java | DSA | Backend Development
 If you find the project useful or interesting, consider giving the repository a ⭐.
 
 **Repository:**  
-https://github.com/shankar-va/Naukri-Clone
+https://github.com/shankar-va/HireSphere-Full-Stack-Job-Portal
 
 ---
 
