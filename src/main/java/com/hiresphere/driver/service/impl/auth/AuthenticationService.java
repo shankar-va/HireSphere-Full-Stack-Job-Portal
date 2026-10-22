@@ -64,7 +64,7 @@ public class AuthenticationService {
 
         UserDetails principal = (UserDetails) authenticate.getPrincipal();
 
-        User user = userRepository.findUserWithRoles(principal.getUsername())
+        User user = userRepository.findUserWithRolesAndPrivileges(principal.getUsername())
 
                                   .orElseThrow(() -> new IllegalStateException("Authenticated user was not found"));
 
@@ -104,7 +104,7 @@ public class AuthenticationService {
     public boolean logoutAllDevices(UserDetails userDetails) {
 
 
-        User user = userRepository.findUserWithRoles(userDetails.getUsername())
+        User user = userRepository.findUserWithRolesAndPrivileges(userDetails.getUsername())
 
                                   .orElseThrow(() -> new UsernameNotFoundException("User Not found"));
 

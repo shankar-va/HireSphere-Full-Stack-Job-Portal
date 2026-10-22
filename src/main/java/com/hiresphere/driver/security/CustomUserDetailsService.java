@@ -29,7 +29,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
 
-        User user = userRepository.findUserWithRoles(email)
+        User user = userRepository.findUserWithRolesAndPrivileges(email)
 
                                   .orElseThrow(() -> new UsernameNotFoundException("Invalid Username or Password!..."));
 
