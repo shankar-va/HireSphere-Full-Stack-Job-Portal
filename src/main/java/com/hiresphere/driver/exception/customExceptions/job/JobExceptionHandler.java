@@ -41,7 +41,6 @@ public class JobExceptionHandler {
     }
 
 
-
     @ExceptionHandler(JobInvalidRecruiterToCompanyException.class)
 
     public ResponseEntity<ErrorResponseDTO> jobInvalidRecruiterToCompany(JobInvalidRecruiterToCompanyException exception, HttpServletRequest request) {
@@ -64,7 +63,6 @@ public class JobExceptionHandler {
     }
 
 
-
     @ExceptionHandler(JobInvalidSalaryRangeException.class)
 
     public ResponseEntity<ErrorResponseDTO> jobInvalidSalaryRange(JobInvalidSalaryRangeException exception, HttpServletRequest request) {
@@ -85,7 +83,6 @@ public class JobExceptionHandler {
                              .body(error);
 
     }
-
 
 
     @ExceptionHandler(JobInvalidSortingException.class)

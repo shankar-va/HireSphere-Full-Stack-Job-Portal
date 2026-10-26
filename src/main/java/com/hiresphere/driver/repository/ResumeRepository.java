@@ -19,7 +19,6 @@ public interface ResumeRepository extends JpaRepository<Resume, Integer> {
     boolean existsByJobSeekerJobSeekerId(Integer jobSeekerId);
 
 
-
     Optional<Resume> findByJobSeekerJobSeekerId(Integer jobSeekerId);
 
 

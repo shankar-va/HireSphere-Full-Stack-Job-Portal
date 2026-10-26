@@ -1,4 +1,4 @@
-package com.hiresphere.driver.service.impl.auth.refreshToken;
+package com.hiresphere.driver.security.refreshToken;
 
 
 import org.springframework.stereotype.Component;

@@ -40,7 +40,6 @@ public class JobController {
     private final JobServiceImpl jobService;
 
 
-
     @PostMapping("/register")
 
     public ResponseEntity<JobResponse> register(@RequestBody @Valid JobCreateRequest request) {
@@ -53,8 +52,7 @@ public class JobController {
     }
 
 
-
-    @GetMapping("/get/{id}")
+    @GetMapping("/{id}")
 
     public ResponseEntity<JobResponse> getJob(@PathVariable @NotNull Integer id) {
 
@@ -66,8 +64,7 @@ public class JobController {
     }
 
 
-
-    @GetMapping("/get/search")
+    @PostMapping("/search")
 
     public ResponseEntity<Page<JobSummaryResponse>> searchJob(@RequestBody @Valid JobSearchRequest request,
 
@@ -87,8 +84,7 @@ public class JobController {
     }
 
 
-
-    @PatchMapping("/update")
+    @PatchMapping("/")
 
     public ResponseEntity<JobResponse> update(@RequestBody @Valid JobUpdateRequest request) {
 
@@ -100,8 +96,7 @@ public class JobController {
     }
 
 
-
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
 
     public void delete(@PathVariable @NotNull Integer id) {
 
@@ -109,7 +104,6 @@ public class JobController {
         jobService.deleteJob(id);
 
     }
-
 
 
     @DeleteMapping("/close/{id}")

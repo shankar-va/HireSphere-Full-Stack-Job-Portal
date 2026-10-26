@@ -1,4 +1,4 @@
-package com.hiresphere.driver.service.impl.auth.refreshToken;
+package com.hiresphere.driver.security.refreshToken;
 
 
 import com.hiresphere.driver.dto.request.auth.GeneratedRefreshToken;
@@ -48,7 +48,6 @@ public class RefreshTokenService {
     private final TokenHashService hashService;
 
 
-
     @Transactional
 
     public GeneratedRefreshToken createFamily(User user) {
@@ -63,7 +62,6 @@ public class RefreshTokenService {
         return create(user, now, deadline, familyId);
 
     }
-
 
 
     public GeneratedRefreshToken create(User user, Instant now, Instant deadline, UUID familyId) {
@@ -88,12 +86,10 @@ public class RefreshTokenService {
                                                 .build();
 
         RefreshToken savedToken = repository.saveAndFlush(refreshToken);
-        System.out.println("Refresh token saved with ID: " + savedToken.getRefreshId());
 
         return new GeneratedRefreshToken(rawToken, refreshToken);
 
     }
-
 
 
     @Transactional(noRollbackFor = RefreshTokenReuseException.class)
@@ -144,7 +140,6 @@ public class RefreshTokenService {
     }
 
 
-
     @Transactional
 
     public void revoke(String rawtoken) {
@@ -165,7 +160,6 @@ public class RefreshTokenService {
                   });
 
     }
-
 
 
     @Transactional

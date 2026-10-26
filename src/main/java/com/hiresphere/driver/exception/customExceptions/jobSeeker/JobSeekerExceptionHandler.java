@@ -41,7 +41,6 @@ public class JobSeekerExceptionHandler {
     }
 
 
-
     @ExceptionHandler(JobSeekerInvalidSortingException.class)
 
     public ResponseEntity<ErrorResponseDTO> jobSeekerInvalidSorting(JobSeekerInvalidSortingException exception, HttpServletRequest request) {
@@ -62,7 +61,6 @@ public class JobSeekerExceptionHandler {
                              .body(error);
 
     }
-
 
 
     @ExceptionHandler(JobSeekerNotFoundException.class)

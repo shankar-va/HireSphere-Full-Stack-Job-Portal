@@ -32,13 +32,10 @@ public interface JobApplicationMapper {
     @Mapping(source = "job", target = "job")
 
     @Mapping(source = "jobSeeker", target = "jobSeeker")
-
     JobApplication toEntity(ApplyForJobRequest request, Job job, JobSeeker jobSeeker);
 
 
-
     JobApplicationResponse toResponseDTO(JobApplication jobApplication);
-
 
 
     JobApplicationSummaryResponse toSummaryResponseDTO(JobApplication jobApplication);

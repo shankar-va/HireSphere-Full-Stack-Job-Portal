@@ -70,7 +70,6 @@ public class GlobalExceptionHandler {
     }
 
 
-
     @ExceptionHandler(Exception.class)
 
     public ResponseEntity<ErrorResponseDTO> exception(Exception ex, HttpServletRequest request) {

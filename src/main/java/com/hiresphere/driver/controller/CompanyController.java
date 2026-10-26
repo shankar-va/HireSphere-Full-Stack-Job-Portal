@@ -25,7 +25,7 @@ import java.util.List;
 
 @RestController
 
-@RequestMapping("/api")
+@RequestMapping("/api/companies")
 
 @RequiredArgsConstructor
 
@@ -35,8 +35,7 @@ public class CompanyController {
     private final CompanyServiceImpl companyService;
 
 
-
-    @PostMapping("/companies")
+    @PostMapping("/")
 
     public ResponseEntity<CompanyResponse> registerCompany(@RequestBody @Valid CompanyRegistrationRequest request) {
 
@@ -48,8 +47,7 @@ public class CompanyController {
     }
 
 
-
-    @GetMapping("/companies/{id}")
+    @GetMapping("/{id}")
 
     public ResponseEntity<CompanyResponse> getCompany(@PathVariable("id") Integer id) {
 
@@ -61,8 +59,7 @@ public class CompanyController {
     }
 
 
-
-    @GetMapping("/companies")
+    @GetMapping("/")
 
     public ResponseEntity<List<CompanyResponse>> getCompanies() {
 
@@ -74,8 +71,7 @@ public class CompanyController {
     }
 
 
-
-    @PutMapping("/companies")
+    @PutMapping("/")
 
     public ResponseEntity<CompanyResponse> updateCompany(@RequestBody @Valid CompanyUpdateRequest request) {
 
@@ -87,8 +83,7 @@ public class CompanyController {
     }
 
 
-
-    @DeleteMapping("/companies/{id}")
+    @DeleteMapping("/{id}")
 
     public ResponseEntity<String> deleteCompany(@PathVariable("id") Integer id) {
 

@@ -24,9 +24,7 @@ public interface UserMapper {
     User toEntity(UserRegistrationRequest request);
 
 
-
     User updateUser(UserUpdateRequest request, @MappingTarget User user);
-
 
 
     UserResponse toResponseDTO(User user);

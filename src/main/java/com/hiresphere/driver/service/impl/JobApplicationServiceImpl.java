@@ -2,62 +2,33 @@ package com.hiresphere.driver.service.impl;
 
 
 import com.hiresphere.driver.dto.request.jobApplication.ApplicationStatusUpdateRequest;
-
 import com.hiresphere.driver.dto.request.jobApplication.ApplyForJobRequest;
-
 import com.hiresphere.driver.dto.request.jobApplication.JobApplicationSearchRequest;
-
 import com.hiresphere.driver.dto.response.jobApplication.JobApplicationResponse;
-
 import com.hiresphere.driver.dto.response.jobApplication.JobApplicationSummaryResponse;
-
 import com.hiresphere.driver.enumaration.jobApplication.ApplicationStatus;
-
 import com.hiresphere.driver.exception.customExceptions.job.JobNotFoundException;
-
 import com.hiresphere.driver.exception.customExceptions.jobApplication.*;
-
-import com.hiresphere.driver.exception.customExceptions.jobApplication.*;
-
 import com.hiresphere.driver.exception.customExceptions.jobSeeker.JobSeekerNotFoundException;
-
 import com.hiresphere.driver.mapper.jobApplication.JobApplicationMapper;
-
 import com.hiresphere.driver.model.entity.Job;
-
 import com.hiresphere.driver.model.entity.JobApplication;
-
 import com.hiresphere.driver.model.entity.JobSeeker;
-
 import com.hiresphere.driver.repository.JobApplicationRepository;
-
 import com.hiresphere.driver.repository.JobRepository;
-
 import com.hiresphere.driver.repository.JobSeekerRepository;
-
 import com.hiresphere.driver.specification.jobApplication.BuildJobApplicationSpecification;
-
 import lombok.RequiredArgsConstructor;
-
 import org.springframework.data.domain.Page;
-
 import org.springframework.data.domain.PageRequest;
-
 import org.springframework.data.domain.Pageable;
-
 import org.springframework.data.domain.Sort;
-
 import org.springframework.data.jpa.domain.Specification;
-
 import org.springframework.stereotype.Service;
-
 import org.springframework.transaction.annotation.Transactional;
 
-
 import java.time.LocalDate;
-
 import java.util.List;
-
 import java.util.stream.Collectors;
 
 
@@ -81,7 +52,6 @@ public class JobApplicationServiceImpl {
 
 
     private final BuildJobApplicationSpecification jobApplicationSpecification;
-
 
 
     @Transactional
@@ -136,7 +106,6 @@ public class JobApplicationServiceImpl {
     }
 
 
-
     public JobApplicationResponse getApplicationById(Integer id) {
 
 
@@ -147,7 +116,6 @@ public class JobApplicationServiceImpl {
         return jobApplicationMapper.toResponseDTO(jobApplication);
 
     }
-
 
 
     public List<JobApplicationSummaryResponse> getApplications(Integer id) {
@@ -162,7 +130,6 @@ public class JobApplicationServiceImpl {
                               .collect(Collectors.toList());
 
     }
-
 
 
     @Transactional
@@ -189,7 +156,6 @@ public class JobApplicationServiceImpl {
     }
 
 
-
     @Transactional
 
     public JobApplicationResponse updateApplicationStatus(ApplicationStatusUpdateRequest request) {
@@ -213,7 +179,7 @@ public class JobApplicationServiceImpl {
 
             throw new JobApplicationStatusUnchangeableException("Job Application has reached its terminal status");
 
-        if (!request.getStatus()
+        if (!jobApplication.getStatus()
 
                     .canTransitionTo(jobApplication.getStatus())) {
 
@@ -229,7 +195,6 @@ public class JobApplicationServiceImpl {
         return jobApplicationMapper.toResponseDTO(jobApplication);
 
     }
-
 
 
     public Page<JobApplicationSummaryResponse> searchApplications(JobApplicationSearchRequest request, Integer page, Integer size, String sort, String sortDirection) {

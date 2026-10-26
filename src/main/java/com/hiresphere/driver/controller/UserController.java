@@ -1,24 +1,14 @@
 package com.hiresphere.driver.controller;
 
 
-import com.hiresphere.driver.dto.request.user.UserRegistrationRequest;
-
 import com.hiresphere.driver.dto.request.user.UserUpdateRequest;
-
 import com.hiresphere.driver.dto.response.user.UserResponse;
-
 import com.hiresphere.driver.service.impl.UserServiceImpl;
-
 import jakarta.validation.Valid;
-
 import lombok.RequiredArgsConstructor;
-
 import org.springframework.http.HttpStatus;
-
 import org.springframework.http.ResponseEntity;
-
 import org.springframework.web.bind.annotation.*;
-
 
 import java.util.List;
 
@@ -27,7 +17,7 @@ import java.util.List;
 
 @RestController
 
-@RequestMapping("/api")
+@RequestMapping("/api/user")
 
 public class UserController {
 
@@ -35,8 +25,7 @@ public class UserController {
     private final UserServiceImpl userService;
 
 
-
-    @GetMapping("/user")
+    @GetMapping("/")
 
     public ResponseEntity<List<UserResponse>> getUsers() {
 
@@ -48,8 +37,7 @@ public class UserController {
     }
 
 
-
-    @GetMapping("/user/{id}")
+    @GetMapping("/{id}")
 
     public ResponseEntity<UserResponse> getUser(@PathVariable Integer id) {
 
@@ -61,9 +49,7 @@ public class UserController {
     }
 
 
-
-
-    @PatchMapping("/user")
+    @PatchMapping("/")
 
     public ResponseEntity<UserResponse> update(@RequestBody @Valid UserUpdateRequest request) {
 
@@ -75,8 +61,7 @@ public class UserController {
     }
 
 
-
-    @DeleteMapping("/user/{id}")
+    @DeleteMapping("/{id}")
 
     public void delete(@PathVariable Integer id) {
 

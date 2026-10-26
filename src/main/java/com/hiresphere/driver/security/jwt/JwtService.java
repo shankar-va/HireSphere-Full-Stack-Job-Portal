@@ -46,7 +46,6 @@ public class JwtService {
     private final long expirationMs;
 
 
-
     public JwtService(@Value("${security.jwt.issuer}") String issuer,
 
                       @Value("${security.jwt.secret}") String secretKey,
@@ -67,7 +66,6 @@ public class JwtService {
         this.expirationMs = expirationMs;
 
     }
-
 
 
     public String generateAccessToken(UserDetails userDetails) {
@@ -108,7 +106,6 @@ public class JwtService {
     }
 
 
-
     public Claims validateAndExtractClaim(String token) {
 
 
@@ -129,14 +126,12 @@ public class JwtService {
     }
 
 
-
     public String extractEmail(String token) {
 
 
         return validateAndExtractClaim(token).getSubject();
 
     }
-
 
 
     public List<String> extractAuthorities(String token) {
@@ -159,7 +154,6 @@ public class JwtService {
                           .toList();
 
     }
-
 
 
     public boolean isValidToken(String token) {

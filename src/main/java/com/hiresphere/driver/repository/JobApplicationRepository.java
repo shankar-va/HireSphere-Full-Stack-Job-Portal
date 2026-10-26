@@ -21,7 +21,6 @@ public interface JobApplicationRepository extends JpaRepository<JobApplication, 
     Boolean existsByJobJobIdAndJobSeekerJobSeekerId(Integer jobId, Integer jobSeekerId);
 
 
-
     List<JobApplication> findByJobSeekerJobSeekerId(Integer id);
 
 

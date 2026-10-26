@@ -39,7 +39,6 @@ public class JobApplicationExceptionHandler {
     }
 
 
-
     @ExceptionHandler(JobApplicationCrossedDeadlineException.class)
 
     public ResponseEntity<ErrorResponseDTO> jobApplicationDeadLineCrossed(JobApplicationCrossedDeadlineException exception, HttpServletRequest request) {
@@ -58,7 +57,6 @@ public class JobApplicationExceptionHandler {
                              .body(error);
 
     }
-
 
 
     @ExceptionHandler(JobApplicationDuplicationException.class)
@@ -81,7 +79,6 @@ public class JobApplicationExceptionHandler {
     }
 
 
-
     @ExceptionHandler(JobApplicationInvalidSortingException.class)
 
     public ResponseEntity<ErrorResponseDTO> jobApplicationInvalidSorting(JobApplicationInvalidSortingException exception, HttpServletRequest request) {
@@ -100,7 +97,6 @@ public class JobApplicationExceptionHandler {
                              .body(error);
 
     }
-
 
 
     @ExceptionHandler(JobApplicationNotFoundException.class)
@@ -123,7 +119,6 @@ public class JobApplicationExceptionHandler {
     }
 
 
-
     @ExceptionHandler(JobApplicationPastJoinDateException.class)
 
     public ResponseEntity<ErrorResponseDTO> jobApplicationPastJoinDate(JobApplicationPastJoinDateException exception, HttpServletRequest request) {
@@ -142,7 +137,6 @@ public class JobApplicationExceptionHandler {
                              .body(error);
 
     }
-
 
 
     @ExceptionHandler(JobApplicationStatusUnchangeableException.class)

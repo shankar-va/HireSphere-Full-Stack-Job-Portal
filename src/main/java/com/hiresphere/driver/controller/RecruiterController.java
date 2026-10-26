@@ -34,8 +34,7 @@ public class RecruiterController {
     private final RecruiterServiceImpl recruiterService;
 
 
-
-    @PostMapping("/register")
+    @PostMapping("/")
 
     public ResponseEntity<RecruiterResponse> register(@RequestBody @Valid RecruiterRegistrationRequest request) {
 
@@ -47,8 +46,7 @@ public class RecruiterController {
     }
 
 
-
-    @GetMapping("/get/{id}")
+    @GetMapping("/{id}")
 
     public ResponseEntity<RecruiterResponse> get(@PathVariable @NotNull Integer id) {
 
@@ -60,8 +58,7 @@ public class RecruiterController {
     }
 
 
-
-    @PutMapping("/update")
+    @PutMapping("/")
 
     public ResponseEntity<RecruiterResponse> update(@RequestBody @Valid RecruiterUpdateRequest request) {
 
@@ -73,8 +70,7 @@ public class RecruiterController {
     }
 
 
-
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
 
     public void delete(@PathVariable @NotNull Integer id) {
 

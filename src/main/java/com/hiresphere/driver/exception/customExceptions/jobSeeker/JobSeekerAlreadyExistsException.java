@@ -5,13 +5,10 @@ public class JobSeekerAlreadyExistsException extends RuntimeException {
 
 
     /**
-
      *
-
      */
 
     private static final long serialVersionUID = 1L;
-
 
 
     public JobSeekerAlreadyExistsException(String message) {

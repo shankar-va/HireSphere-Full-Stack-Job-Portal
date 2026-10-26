@@ -41,7 +41,6 @@ public class RefreshTokenException {
     }
 
 
-
     @ExceptionHandler(RefreshTokenReuseException.class)
 
     public ResponseEntity<ErrorResponseDTO> refreshTokenReuse(RefreshTokenReuseException exception, HttpServletRequest request) {

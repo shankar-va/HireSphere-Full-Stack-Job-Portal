@@ -76,7 +76,6 @@ public class RefreshToken {
     private User user;
 
 
-
     public boolean isExpired() {
 
 
@@ -87,14 +86,12 @@ public class RefreshToken {
     }
 
 
-
     public boolean isRevoked() {
 
 
         return revokedAt != null;
 
     }
-
 
 
     public boolean isActive() {

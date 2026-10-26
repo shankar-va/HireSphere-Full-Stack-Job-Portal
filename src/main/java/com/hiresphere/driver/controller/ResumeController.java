@@ -34,8 +34,7 @@ public class ResumeController {
     private final ResumeServiceImpl resumeService;
 
 
-
-    @PostMapping("/register")
+    @PostMapping("/")
 
     public ResponseEntity<ResumeResponse> register(@RequestBody @Valid ResumeCreateRequest request) {
 
@@ -47,8 +46,7 @@ public class ResumeController {
     }
 
 
-
-    @GetMapping("/get/{id}")
+    @GetMapping("/{id}")
 
     public ResponseEntity<ResumeResponse> get(@PathVariable @NotNull Integer id) {
 
@@ -60,8 +58,7 @@ public class ResumeController {
     }
 
 
-
-    @GetMapping("/get/jobSeeker/{id}")
+    @GetMapping("/jobSeeker/{id}")
 
     public ResponseEntity<ResumeResponse> getByJobSeeker(@PathVariable @NotNull Integer id) {
 
@@ -73,8 +70,7 @@ public class ResumeController {
     }
 
 
-
-    @PutMapping("/update")
+    @PutMapping("/")
 
     public ResponseEntity<ResumeResponse> update(@RequestBody @Valid ResumeUpdateRequest request) {
 
@@ -86,8 +82,7 @@ public class ResumeController {
     }
 
 
-
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
 
     public void delete(@PathVariable @NotNull Integer id) {
 

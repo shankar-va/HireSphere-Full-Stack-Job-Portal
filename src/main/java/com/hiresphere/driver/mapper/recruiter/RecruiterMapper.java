@@ -32,25 +32,19 @@ public interface RecruiterMapper {
     @Mapping(source = "user", target = "user")
 
     @Mapping(source = "company", target = "company")
-
     Recruiter toEntity(RecruiterRegistrationRequest request, User user, Company company);
-
 
 
     Recruiter toUpdateRecruiter(RecruiterUpdateRequest request, @MappingTarget Recruiter recruiter);
 
 
-
     @Mapping(source = "user.userId", target = "userId")
 
     @Mapping(source = "company.companyId", target = "companyId")
-
     RecruiterResponse toResponseDTO(Recruiter recruiter);
 
 
-
     @Mapping(source = "user.firstName", target = "recruiterName")
-
     RecruiterSummaryResponse toResponseDTOSummary(Recruiter recruiter);
 
 

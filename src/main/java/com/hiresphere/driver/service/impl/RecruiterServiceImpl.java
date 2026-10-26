@@ -59,7 +59,6 @@ public class RecruiterServiceImpl {
     private final RecruiterRepository recruiterRepository;
 
 
-
     @Transactional
 
     public RecruiterResponse register(RecruiterRegistrationRequest request) {
@@ -91,7 +90,6 @@ public class RecruiterServiceImpl {
     }
 
 
-
     public RecruiterResponse getRecruiterById(Integer id) {
 
 
@@ -102,7 +100,6 @@ public class RecruiterServiceImpl {
         return recruiterMapper.toResponseDTO(recruiter);
 
     }
-
 
 
     @Transactional
@@ -129,7 +126,6 @@ public class RecruiterServiceImpl {
         return recruiterMapper.toResponseDTO(recruiter2);
 
     }
-
 
 
     @Transactional

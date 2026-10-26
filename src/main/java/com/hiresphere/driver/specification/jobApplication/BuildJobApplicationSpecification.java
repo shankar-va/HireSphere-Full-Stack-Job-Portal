@@ -22,7 +22,6 @@ public class BuildJobApplicationSpecification {
     private final JobApplicationSpecification specification;
 
 
-
     public Specification<JobApplication> buildJobApplicationSpecification(JobApplicationSearchRequest request) {
 
 

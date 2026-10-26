@@ -41,7 +41,6 @@ public class UserExceptionHandler {
     }
 
 
-
     @ExceptionHandler(UserNotFoundException.class)
 
     public ResponseEntity<ErrorResponseDTO> userNotFound(UserNotFoundException exception, HttpServletRequest request) {

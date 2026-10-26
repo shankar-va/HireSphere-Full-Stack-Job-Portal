@@ -36,31 +36,25 @@ public interface JobMapper {
     @Mapping(source = "company", target = "company")
 
     @Mapping(source = "recruiter", target = "recruiter")
-
     Job toEntity(JobCreateRequest request, Company company, Recruiter recruiter);
-
 
 
     Job toUpdateJob(JobUpdateRequest request, @MappingTarget Job job);
 
 
-
     @Mapping(source = "company.companyId", target = "companyId")
 
     @Mapping(source = "company.companyName", target = "companyName")
 
     @Mapping(source = "preferredLocations", target = "preferredLocations")
-
     JobResponse toResponseDTO(Job job);
 
 
-
     @Mapping(source = "company.companyId", target = "companyId")
 
     @Mapping(source = "company.companyName", target = "companyName")
 
     @Mapping(source = "preferredLocations", target = "preferredLocations")
-
     JobSummaryResponse toResponseDTOSummary(Job job);
 
 

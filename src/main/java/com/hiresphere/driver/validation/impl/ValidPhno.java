@@ -1,7 +1,6 @@
 package com.hiresphere.driver.validation.impl;
 
 
-
 import com.hiresphere.driver.validation.interfaces.ValidatePhno;
 
 import jakarta.validation.ConstraintValidator;
@@ -13,7 +12,6 @@ public class ValidPhno implements ConstraintValidator<ValidatePhno, String> {
 
 
     private final String PHONE_NO_PATTERN = "^(?:\\+91|91)?[-\\s]?[6-9]\\d{9}$";
-
 
 
     @Override

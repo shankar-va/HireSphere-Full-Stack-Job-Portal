@@ -1,4 +1,4 @@
-package com.hiresphere.driver.service.impl.auth;
+package com.hiresphere.driver.service.impl;
 
 
 import com.hiresphere.driver.dto.request.auth.AuthenticationResult;
@@ -13,7 +13,7 @@ import com.hiresphere.driver.security.CustomUserDetails;
 
 import com.hiresphere.driver.security.jwt.JwtService;
 
-import com.hiresphere.driver.service.impl.auth.refreshToken.RefreshTokenService;
+import com.hiresphere.driver.security.refreshToken.RefreshTokenService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -51,7 +51,6 @@ public class AuthenticationService {
     private final RefreshTokenService refreshTokenService;
 
 
-
     @Transactional
 
     public AuthenticationResult login(String email, String password) {
@@ -77,7 +76,6 @@ public class AuthenticationService {
     }
 
 
-
     @Transactional
 
     public AuthenticationResult refresh(String rawToken) {
@@ -98,7 +96,6 @@ public class AuthenticationService {
     }
 
 
-
     @Transactional
 
     public boolean logoutAllDevices(UserDetails userDetails) {
@@ -113,7 +110,6 @@ public class AuthenticationService {
         return true;
 
     }
-
 
 
 }

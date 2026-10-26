@@ -16,13 +16,10 @@ public interface CompanyRepository extends JpaRepository<Company, Integer> {
     Boolean existsByEmail(String email);
 
 
-
     Boolean existsByPhoneNumber(String phoneNumber);
 
 
-
     Boolean existsByEmailAndCompanyIdNot(String email, Integer companyId);
-
 
 
     Boolean existsByPhoneNumberAndCompanyIdNot(String phoneNumber, Integer companyId);

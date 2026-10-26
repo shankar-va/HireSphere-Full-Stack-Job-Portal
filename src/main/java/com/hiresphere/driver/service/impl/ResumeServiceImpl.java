@@ -46,7 +46,6 @@ public class ResumeServiceImpl {
     private final ResumeMapper resumeMapper;
 
 
-
     @Transactional
 
     public ResumeResponse createResume(
@@ -108,7 +107,6 @@ public class ResumeServiceImpl {
     }
 
 
-
     @Transactional(readOnly = true)
 
     public ResumeResponse getResumeById(Integer resumeId) {
@@ -132,7 +130,6 @@ public class ResumeServiceImpl {
         return resumeMapper.toResponseDTO(resume);
 
     }
-
 
 
     @Transactional(readOnly = true)
@@ -162,7 +159,6 @@ public class ResumeServiceImpl {
         return resumeMapper.toResponseDTO(resume);
 
     }
-
 
 
     @Transactional
@@ -210,7 +206,6 @@ public class ResumeServiceImpl {
         return resumeMapper.toResponseDTO(savedResume);
 
     }
-
 
 
     @Transactional

@@ -43,7 +43,6 @@ public class JobApplicationController {
     private final JobApplicationServiceImpl jobApplicationService;
 
 
-
     @PostMapping("/apply")
 
     public ResponseEntity<JobApplicationResponse> apply(@RequestBody @Valid ApplyForJobRequest request) {
@@ -56,8 +55,7 @@ public class JobApplicationController {
     }
 
 
-
-    @GetMapping("/get/{id}")
+    @GetMapping("/{id}")
 
     public ResponseEntity<JobApplicationResponse> getApplication(@PathVariable @NotNull Integer id) {
 
@@ -69,8 +67,7 @@ public class JobApplicationController {
     }
 
 
-
-    @GetMapping("/get/applied/{id}")
+    @GetMapping("/applied/{id}")
 
     public ResponseEntity<List<JobApplicationSummaryResponse>> getApplications(@PathVariable @NotNull Integer id) {
 
@@ -82,8 +79,7 @@ public class JobApplicationController {
     }
 
 
-
-    @GetMapping("/get/search")
+    @PostMapping("/search")
 
     public ResponseEntity<Page<JobApplicationSummaryResponse>> search(@RequestBody @Valid JobApplicationSearchRequest request,
 
@@ -103,8 +99,7 @@ public class JobApplicationController {
     }
 
 
-
-    @PutMapping("/update")
+    @PutMapping("/")
 
     public ResponseEntity<JobApplicationResponse> update(@RequestBody @Valid ApplicationStatusUpdateRequest request) {
 
@@ -116,8 +111,7 @@ public class JobApplicationController {
     }
 
 
-
-    @PatchMapping("/withdraw/{id}")
+    @PatchMapping("/{id}")
 
     public ResponseEntity<JobApplicationResponse> withdraw(@PathVariable @NotNull Integer id) {
 

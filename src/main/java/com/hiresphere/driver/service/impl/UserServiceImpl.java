@@ -2,33 +2,18 @@ package com.hiresphere.driver.service.impl;
 
 
 import com.hiresphere.driver.dto.request.user.UserRegistrationRequest;
-
 import com.hiresphere.driver.dto.request.user.UserUpdateRequest;
-
 import com.hiresphere.driver.dto.response.user.UserResponse;
-
-import com.hiresphere.driver.enumaration.role.Roles;
 import com.hiresphere.driver.exception.customExceptions.user.InvalidUserDetailsException;
-
 import com.hiresphere.driver.exception.customExceptions.user.UserNotFoundException;
-
 import com.hiresphere.driver.mapper.user.UserMapper;
-
 import com.hiresphere.driver.model.entity.User;
-
 import com.hiresphere.driver.repository.UserRepository;
-
-
 import lombok.RequiredArgsConstructor;
-
-
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-
 import java.util.List;
-
-import java.util.Set;
 import java.util.stream.Collectors;
 
 
@@ -46,6 +31,7 @@ public class UserServiceImpl {
 
     private final PasswordEncoder passwordEncoder;
 
+
     public UserResponse register(UserRegistrationRequest request) {
 
 
@@ -62,7 +48,6 @@ public class UserServiceImpl {
     }
 
 
-
     public UserResponse getUserById(Integer id) {
 
 
@@ -73,7 +58,6 @@ public class UserServiceImpl {
         return userMapper.toResponseDTO(user);
 
     }
-
 
 
     public List<UserResponse> getUsers() {
@@ -88,7 +72,6 @@ public class UserServiceImpl {
                              .collect(Collectors.toList());
 
     }
-
 
 
     public UserResponse updateUser(UserUpdateRequest request) {
@@ -117,7 +100,6 @@ public class UserServiceImpl {
         return userMapper.toResponseDTO(user2);
 
     }
-
 
 
     public void deleteUser(Integer id) {

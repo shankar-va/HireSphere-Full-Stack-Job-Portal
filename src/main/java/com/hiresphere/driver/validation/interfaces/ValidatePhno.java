@@ -25,9 +25,7 @@ public @interface ValidatePhno {
     String message() default "Mobile Number Validation Unsuccessful";
 
 
-
     Class<?>[] groups() default {};
-
 
 
     Class<? extends Payload>[] payload() default {};

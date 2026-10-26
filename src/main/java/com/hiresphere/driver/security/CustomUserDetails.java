@@ -25,7 +25,6 @@ public class CustomUserDetails implements UserDetails {
     private final User user;
 
 
-
     @Override
 
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -60,7 +59,6 @@ public class CustomUserDetails implements UserDetails {
     }
 
 
-
     @Override
 
     public String getPassword() {
@@ -69,7 +67,6 @@ public class CustomUserDetails implements UserDetails {
         return user.getPassword();
 
     }
-
 
 
     @Override
@@ -82,7 +79,6 @@ public class CustomUserDetails implements UserDetails {
     }
 
 
-
     @Override
 
     public boolean isAccountNonExpired() {
@@ -91,7 +87,6 @@ public class CustomUserDetails implements UserDetails {
         return UserDetails.super.isAccountNonExpired();
 
     }
-
 
 
     @Override
@@ -104,7 +99,6 @@ public class CustomUserDetails implements UserDetails {
     }
 
 
-
     @Override
 
     public boolean isCredentialsNonExpired() {
@@ -113,7 +107,6 @@ public class CustomUserDetails implements UserDetails {
         return UserDetails.super.isCredentialsNonExpired();
 
     }
-
 
 
     @Override

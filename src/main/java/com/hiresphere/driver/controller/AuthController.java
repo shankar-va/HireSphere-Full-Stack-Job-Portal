@@ -15,9 +15,9 @@ import com.hiresphere.driver.exception.customExceptions.security.InvalidRefreshT
 
 import com.hiresphere.driver.service.impl.UserServiceImpl;
 
-import com.hiresphere.driver.service.impl.auth.AuthenticationService;
+import com.hiresphere.driver.service.impl.AuthenticationService;
 
-import com.hiresphere.driver.service.impl.auth.refreshToken.RefreshTokenService;
+import com.hiresphere.driver.security.refreshToken.RefreshTokenService;
 
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -52,15 +52,14 @@ import java.time.Duration;
 public class AuthController {
 
 
-    private final AuthenticationService service;
+    private static final String REFRESH_TOKEN = "refresh-token";
 
+    private final AuthenticationService service;
 
     private final RefreshTokenService refreshTokenService;
 
-
     private final UserServiceImpl userService;
 
-    private static final String REFRESH_TOKEN="refresh-token";
 
     @PostMapping("/register")
 
@@ -72,7 +71,6 @@ public class AuthController {
                              .body(userService.register(request));
 
     }
-
 
 
     @PostMapping("/login")
@@ -87,7 +85,6 @@ public class AuthController {
         return ResponseEntity.ok(new LoginResponse(login.accessToken()));
 
     }
-
 
 
     @PostMapping("/refresh")
@@ -113,10 +110,9 @@ public class AuthController {
     }
 
 
-
     @PostMapping("/logout")
 
-    public ResponseEntity<Void> logout(@CookieValue(name = "refresh_token", required = false) String rawToken, HttpServletResponse response) {
+    public ResponseEntity<Void> logout(@CookieValue(name = "refresh-token", required = false) String rawToken, HttpServletResponse response) {
 
 
         if (rawToken != null && !rawToken.isBlank()) {
@@ -132,7 +128,6 @@ public class AuthController {
                              .build();
 
     }
-
 
 
     @PostMapping("/logout-all")
@@ -154,7 +149,6 @@ public class AuthController {
     }
 
 
-
     private void setRefreshTokenService(HttpServletResponse response, String refreshToken) {
 
 
@@ -166,7 +160,7 @@ public class AuthController {
 
                                               .secure(true)
 
-                                              .path("auth")
+                                              .path("/auth")
 
                                               .maxAge(Duration.ofDays(7))
 
@@ -175,7 +169,6 @@ public class AuthController {
         response.setHeader(HttpHeaders.SET_COOKIE, cookie.toString());
 
     }
-
 
 
     private void clearRefreshToken(HttpServletResponse response) {
@@ -187,18 +180,17 @@ public class AuthController {
 
                                               .httpOnly(true)
 
-                                              .path("auth")
+                                              .path("/auth")
 
                                               .secure(true)
 
-                                              .maxAge(Duration.ofDays(7))
+                                              .maxAge(0)
 
                                               .build();
 
         response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
 
     }
-
 
 
 }

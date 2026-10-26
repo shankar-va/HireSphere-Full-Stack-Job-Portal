@@ -41,7 +41,6 @@ public class ResumeExceptionHandler {
     }
 
 
-
     @ExceptionHandler(ResumeNotFoundException.class)
 
     public ResponseEntity<ErrorResponseDTO> resumeNotFound(ResumeNotFoundException exception, HttpServletRequest request) {
@@ -62,7 +61,6 @@ public class ResumeExceptionHandler {
                              .body(error);
 
     }
-
 
 
     @ExceptionHandler(ResumeOwnershipException.class)

@@ -5,13 +5,10 @@ public class RecruiterUserExistsException extends RuntimeException {
 
 
     /**
-
      *
-
      */
 
     private static final long serialVersionUID = 1L;
-
 
 
     public RecruiterUserExistsException(String message) {

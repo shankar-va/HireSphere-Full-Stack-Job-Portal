@@ -42,7 +42,6 @@ public class CompanyServiceImpl {
     private final CompanyMapper companyMapper;
 
 
-
     public CompanyResponse register(CompanyRegistrationRequest registrationRequest) {
 
 
@@ -63,7 +62,6 @@ public class CompanyServiceImpl {
     }
 
 
-
     public CompanyResponse getCompanyById(Integer id) {
 
 
@@ -74,7 +72,6 @@ public class CompanyServiceImpl {
         return companyMapper.toResponseDTO(company);
 
     }
-
 
 
     public List<CompanyResponse> getCompanies() {
@@ -89,7 +86,6 @@ public class CompanyServiceImpl {
                          .collect(Collectors.toList());
 
     }
-
 
 
     public CompanyResponse updateCompany(CompanyUpdateRequest request) {
@@ -118,7 +114,6 @@ public class CompanyServiceImpl {
         return companyMapper.toResponseDTO(result);
 
     }
-
 
 
     public void deleteCompany(Integer id) {

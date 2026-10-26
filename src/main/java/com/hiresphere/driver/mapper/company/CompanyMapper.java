@@ -26,13 +26,10 @@ public interface CompanyMapper {
     Company toEntity(CompanyRegistrationRequest request);
 
 
-
     Company toUpdateEntity(CompanyUpdateRequest request, @MappingTarget Company company);
 
 
-
     CompanyResponse toResponseDTO(Company company);
-
 
 
     CompanySummaryResponse toResponseDTOSummary(Company company);

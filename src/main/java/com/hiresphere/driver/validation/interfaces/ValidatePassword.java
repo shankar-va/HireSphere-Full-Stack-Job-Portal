@@ -25,9 +25,7 @@ public @interface ValidatePassword {
     String message() default "Password validation unsuccessful";
 
 
-
     Class<?>[] groups() default {};
-
 
 
     Class<? extends Payload>[] payload() default {};

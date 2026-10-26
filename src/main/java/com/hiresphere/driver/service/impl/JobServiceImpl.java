@@ -81,7 +81,6 @@ public class JobServiceImpl {
     private final BuildJobSpecification jobSpecification;
 
 
-
     @Transactional// 💡 Crucial: Forces Hibernate to physically COMMIT the data to PostgreSQL
 
     public JobResponse createJob(JobCreateRequest request) {
@@ -155,7 +154,6 @@ public class JobServiceImpl {
     }
 
 
-
     @Transactional(readOnly = true)
 
     public JobResponse getJobById(Integer id) {
@@ -168,7 +166,6 @@ public class JobServiceImpl {
         return jobMapper.toResponseDTO(job);
 
     }
-
 
 
     @Transactional
@@ -211,7 +208,6 @@ public class JobServiceImpl {
     }
 
 
-
     @Transactional
 
     public void deleteJob(Integer jobId) {
@@ -222,7 +218,6 @@ public class JobServiceImpl {
         jobRepository.deleteById(jobId);
 
     }
-
 
 
     @Transactional(readOnly = true)
@@ -284,7 +279,6 @@ public class JobServiceImpl {
 
 
     }
-
 
 
     @Transactional()

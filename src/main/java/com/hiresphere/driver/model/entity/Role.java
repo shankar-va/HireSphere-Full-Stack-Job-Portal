@@ -51,9 +51,9 @@ public class Role {
 
     @ManyToMany
 
-    @JoinTable(name = "role_info_privileges",joinColumns = @JoinColumn(name = "role_id"),inverseJoinColumns = @JoinColumn(name = "privilege_id"))
+    @JoinTable(name = "role_info_privileges", joinColumns = @JoinColumn(name = "role_id"), inverseJoinColumns = @JoinColumn(name = "privilege_id"))
 
-    private Set<Privilege> privileges=new HashSet<>();
+    private Set<Privilege> privileges = new HashSet<>();
 
 
 }

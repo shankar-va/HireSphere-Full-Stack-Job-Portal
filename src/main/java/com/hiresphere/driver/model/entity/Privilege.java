@@ -36,12 +36,12 @@ public class Privilege {
     private Long privilege_id;
 
 
-    @Column(name = "privilege",nullable = false,unique = true)
+    @Column(name = "privilege", nullable = false, unique = true)
     @Enumerated(EnumType.STRING)
 
     @Builder.Default
 
-    private Privileges privilege=Privileges.PROFILE_READ;
+    private Privileges privilege = Privileges.PROFILE_READ;
 
 
 }

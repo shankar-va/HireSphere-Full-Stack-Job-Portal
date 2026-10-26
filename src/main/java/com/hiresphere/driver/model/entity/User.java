@@ -1,18 +1,12 @@
 package com.hiresphere.driver.model.entity;
 
 
-import com.hiresphere.driver.enumaration.role.Roles;
 import jakarta.persistence.*;
-
 import lombok.*;
-
 import org.hibernate.annotations.CreationTimestamp;
-
 import org.hibernate.annotations.UpdateTimestamp;
 
-
 import java.time.LocalDate;
-
 import java.util.HashSet;
 import java.util.Set;
 
@@ -131,9 +125,9 @@ public class User {
 
     @ManyToMany
 
-    @JoinTable(name = "user_info_roles", joinColumns=@JoinColumn(name = "user_id"),inverseJoinColumns = @JoinColumn(name = "role_id"))
+    @JoinTable(name = "user_info_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
 
-    private Set<Role> roles=new HashSet<>();
+    private Set<Role> roles = new HashSet<>();
 
 
 }

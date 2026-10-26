@@ -23,20 +23,16 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     Boolean existsByEmail(String email);
 
 
-
     Boolean existsByPhoneNumber(String phoneNumber);
 
 
-
     Boolean existsByEmailAndUserIdNot(String email, Integer id);
-
 
 
     Boolean existsByPhoneNumberAndUserIdNot(String phoneNumber, Integer id);
 
 
     @Query("SELECT DISTINCT u FROM User u LEFT JOIN FETCH u.roles r LEFT JOIN FETCH r.privileges WHERE u.email=:email")
-
     Optional<User> findUserWithRolesAndPrivileges(@Param("email") String email);
 
 

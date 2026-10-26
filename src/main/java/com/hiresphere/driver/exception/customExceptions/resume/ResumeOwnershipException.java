@@ -5,13 +5,10 @@ public class ResumeOwnershipException extends RuntimeException {
 
 
     /**
-
      *
-
      */
 
     private static final long serialVersionUID = 1L;
-
 
 
     public ResumeOwnershipException(String message) {

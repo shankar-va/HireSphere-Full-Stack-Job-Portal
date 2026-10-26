@@ -41,7 +41,6 @@ public class RecruiterExceptionHandler {
     }
 
 
-
     @ExceptionHandler(RecruiterEmployeeCodeMismatchException.class)
 
     public ResponseEntity<ErrorResponseDTO> recruiterEmployeeCodeMismatch(RecruiterEmployeeCodeMismatchException exception, HttpServletRequest request) {
@@ -64,7 +63,6 @@ public class RecruiterExceptionHandler {
     }
 
 
-
     @ExceptionHandler(RecruiterNotFoundException.class)
 
     public ResponseEntity<ErrorResponseDTO> recruiterNotFound(RecruiterNotFoundException exception, HttpServletRequest request) {
@@ -85,7 +83,6 @@ public class RecruiterExceptionHandler {
                              .body(error);
 
     }
-
 
 
     @ExceptionHandler(RecruiterUserExistsException.class)

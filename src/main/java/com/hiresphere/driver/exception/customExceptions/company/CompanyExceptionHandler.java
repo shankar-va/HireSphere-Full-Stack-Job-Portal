@@ -41,7 +41,6 @@ public class CompanyExceptionHandler {
     }
 
 
-
     @ExceptionHandler(CompanyEmailExistsException.class)
 
     public ResponseEntity<ErrorResponseDTO> companyEmailExists(CompanyEmailExistsException ex, HttpServletRequest request) {
@@ -62,7 +61,6 @@ public class CompanyExceptionHandler {
                              .body(error);
 
     }
-
 
 
     @ExceptionHandler(CompanyPhoneNumberExistsException.class)

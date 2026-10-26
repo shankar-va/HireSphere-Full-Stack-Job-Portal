@@ -32,7 +32,6 @@ public class JobApplicationSpecification {
     }
 
 
-
     public Specification<JobApplication> byAppliedDate(LocalDate appliedDate) {
 
 
@@ -45,7 +44,6 @@ public class JobApplicationSpecification {
         };
 
     }
-
 
 
     public Specification<JobApplication> byStatus(ApplicationStatus status) {
@@ -62,7 +60,6 @@ public class JobApplicationSpecification {
     }
 
 
-
     public Specification<JobApplication> byJobId(Integer jobId) {
 
 
@@ -72,12 +69,11 @@ public class JobApplicationSpecification {
 
             return cb.equal(root.join("job")
 
-                                .get("job_id"), jobId);
+                                .get("jobId"), jobId);
 
         };
 
     }
-
 
 
     public Specification<JobApplication> byJobSeekerId(Integer jobSeekerId) {
@@ -89,7 +85,7 @@ public class JobApplicationSpecification {
 
             return cb.equal(root.join("jobSeeker")
 
-                                .get("job_seeker_id"), jobSeekerId);
+                                .get("jobSeekerId"), jobSeekerId);
 
         };
 

@@ -33,7 +33,7 @@ import java.util.List;
 
 @RestController
 
-@RequestMapping("/api")
+@RequestMapping("/api/jobSeeker")
 
 public class JobSeekerController {
 
@@ -41,8 +41,7 @@ public class JobSeekerController {
     private final JobSeekerServiceImpl jobSeekerService;
 
 
-
-    @PostMapping("/jobSeeker/{userId}")
+    @PostMapping("/{userId}")
 
     public ResponseEntity<JobSeekerResponse> register(@RequestBody @Valid JobSeekerRegistrationRequest request,
 
@@ -56,8 +55,7 @@ public class JobSeekerController {
     }
 
 
-
-    @GetMapping("/jobSeeker/{id}")
+    @GetMapping("/{id}")
 
     public ResponseEntity<JobSeekerResponse> getJobSeeker(@PathVariable Integer id) {
 
@@ -69,8 +67,7 @@ public class JobSeekerController {
     }
 
 
-
-    @GetMapping("/jobSeeker")
+    @GetMapping("/")
 
     public ResponseEntity<List<JobSeekerResponse>> getJobSeekers() {
 
@@ -82,8 +79,7 @@ public class JobSeekerController {
     }
 
 
-
-    @PutMapping("/jobSeeker")
+    @PutMapping("/")
 
     public ResponseEntity<JobSeekerResponse> update(@RequestBody @Valid JobSeekerUpdateRequest request) {
 
@@ -95,8 +91,7 @@ public class JobSeekerController {
     }
 
 
-
-    @DeleteMapping("/jobSeeker/{id}")
+    @DeleteMapping("/{id}")
 
     public void delete(@PathVariable Integer id) {
 
@@ -106,8 +101,7 @@ public class JobSeekerController {
     }
 
 
-
-    @GetMapping("/jobSeeker/search")
+    @PostMapping("/search")
 
     public ResponseEntity<Page<JobSeekerSummaryResponse>> search(
 

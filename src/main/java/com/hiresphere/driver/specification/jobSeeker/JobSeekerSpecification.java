@@ -32,7 +32,6 @@ public class JobSeekerSpecification {
     }
 
 
-
     public Specification<JobSeeker> byHeadline(String headline) {
 
 
@@ -49,7 +48,6 @@ public class JobSeekerSpecification {
         return (root, query, cb) -> cb.like(cb.lower(root.get("headLine")), "%" + value + "%");
 
     }
-
 
 
     public Specification<JobSeeker> byExperienceRange(Double minimumExperience, Double maximumExperience) {
@@ -74,7 +72,6 @@ public class JobSeekerSpecification {
     }
 
 
-
     public Specification<JobSeeker> byCurrentSalaryRange(Double minimumSalary, Double maximumSalary) {
 
 
@@ -95,7 +92,6 @@ public class JobSeekerSpecification {
         };
 
     }
-
 
 
     public Specification<JobSeeker> byExpectedSalaryRange(Double minimumSalary, Double maximumSalary) {
@@ -120,7 +116,6 @@ public class JobSeekerSpecification {
     }
 
 
-
     public Specification<JobSeeker> byPreferredLocations(List<String> locations) {
 
 
@@ -143,7 +138,6 @@ public class JobSeekerSpecification {
     }
 
 
-
     public Specification<JobSeeker> byHighestQualification(String qualification) {
 
 
@@ -160,7 +154,6 @@ public class JobSeekerSpecification {
         return (root, query, cb) -> cb.like(cb.lower(root.get("highestQualification")), "%" + value + "%");
 
     }
-
 
 
     public Specification<JobSeeker> byAvailability(Boolean available) {

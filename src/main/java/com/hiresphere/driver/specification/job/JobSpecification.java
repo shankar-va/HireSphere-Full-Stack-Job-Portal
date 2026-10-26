@@ -35,7 +35,6 @@ public class JobSpecification {
     }
 
 
-
     public Specification<Job> byJobTitle(String title) {
 
 
@@ -46,7 +45,6 @@ public class JobSpecification {
     }
 
 
-
     public Specification<Job> byJobDescription(String description) {
 
 
@@ -55,7 +53,6 @@ public class JobSpecification {
         return (root, query, cb) -> cb.like(cb.lower(root.get("description")), "%" + description.toLowerCase() + "%");
 
     }
-
 
 
     public Specification<Job> byEmploymentMode(Set<EmploymentMode> employmentMode) {
@@ -76,7 +73,6 @@ public class JobSpecification {
     }
 
 
-
     public Specification<Job> byPreferredLocation(List<String> preferredLocation) {
 
 
@@ -93,7 +89,6 @@ public class JobSpecification {
         };
 
     }
-
 
 
     public Specification<Job> byExperienceRange(Double minExperience, Double maxExperience) {
@@ -126,7 +121,6 @@ public class JobSpecification {
     }
 
 
-
     public Specification<Job> bySalaryRange(Double minSalary, Double maxSalary) {
 
 
@@ -149,7 +143,6 @@ public class JobSpecification {
     }
 
 
-
     public Specification<Job> byVacancies(Integer vacancy) {
 
 
@@ -160,7 +153,6 @@ public class JobSpecification {
     }
 
 
-
     public Specification<Job> byDeadline() {
 
 
@@ -169,14 +161,12 @@ public class JobSpecification {
     }
 
 
-
     public Specification<Job> byOpenJobs() {
 
 
         return (root, query, cb) -> cb.equal(root.get("isClosed"), false);
 
     }
-
 
 
     public Specification<Job> byCompany(Integer companyId) {
@@ -189,7 +179,6 @@ public class JobSpecification {
                                                  .get("companyId"), companyId);
 
     }
-
 
 
     public Specification<Job> byRecruiter(Integer recruiterId) {

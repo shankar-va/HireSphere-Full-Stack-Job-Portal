@@ -83,7 +83,6 @@ public class JobSeekerServiceImpl {
     private final BuildJobSeekerSpecification buildJobSeekerSpecification;
 
 
-
     @Transactional
 
     public JobSeekerResponse registerJobSeeker(JobSeekerRegistrationRequest request, Integer userId) {
@@ -106,7 +105,6 @@ public class JobSeekerServiceImpl {
     }
 
 
-
     @Transactional(readOnly = true)
 
     public JobSeekerResponse getJobSeekerById(Integer id) {
@@ -119,7 +117,6 @@ public class JobSeekerServiceImpl {
         return jobSeekerMapper.toResponseDTO(jobSeeker);
 
     }
-
 
 
     @Transactional(readOnly = true)
@@ -138,7 +135,6 @@ public class JobSeekerServiceImpl {
     }
 
 
-
     @Transactional
 
     public void deleteJobSeeker(Integer id) {
@@ -155,7 +151,6 @@ public class JobSeekerServiceImpl {
         jobSeekerRepository.flush();
 
     }
-
 
 
     @Transactional
@@ -206,7 +201,6 @@ public class JobSeekerServiceImpl {
         return jobSeekerMapper.toResponseDTO(savedJobSeeker);
 
     }
-
 
 
     public Page<JobSeekerSummaryResponse> searchJobSeekers(

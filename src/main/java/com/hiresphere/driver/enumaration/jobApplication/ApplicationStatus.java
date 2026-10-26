@@ -18,7 +18,6 @@ public enum ApplicationStatus {
     WITHDRAWN;
 
 
-
     public boolean canTransitionTo(ApplicationStatus newStatus) {
 
 

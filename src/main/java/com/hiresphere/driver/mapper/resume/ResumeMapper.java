@@ -20,7 +20,6 @@ import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 
 
-
 @Mapper(
 
         componentModel = "spring",
@@ -35,7 +34,6 @@ public interface ResumeMapper {
 
 
     @Mapping(source = "request.experience", target = "experience")
-
     Resume toEntity(
 
             ResumeCreateRequest request,
@@ -44,7 +42,6 @@ public interface ResumeMapper {
             JobSeeker jobSeeker
 
     );
-
 
 
     Resume updateResume(
@@ -56,9 +53,7 @@ public interface ResumeMapper {
     );
 
 
-
     @Mapping(source = "jobSeeker.jobSeekerId", target = "jobSeekerId")
-
     ResumeResponse toResponseDTO(Resume resume);
 
 

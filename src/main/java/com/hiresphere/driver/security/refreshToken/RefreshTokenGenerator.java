@@ -1,4 +1,4 @@
-package com.hiresphere.driver.service.impl.auth.refreshToken;
+package com.hiresphere.driver.security.refreshToken;
 
 
 import lombok.NoArgsConstructor;
@@ -19,7 +19,6 @@ public class RefreshTokenGenerator {
 
 
     private final SecureRandom secureRandom = new SecureRandom();
-
 
 
     public String generate() {

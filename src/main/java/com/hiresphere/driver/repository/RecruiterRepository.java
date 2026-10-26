@@ -16,9 +16,7 @@ public interface RecruiterRepository extends JpaRepository<Recruiter, Integer> {
     Boolean existsByUserUserId(Integer userId);
 
 
-
     Boolean existsByEmployeeCode(String employeeCode);
-
 
 
     Boolean existsByEmployeeCodeAndRecruiterIdNot(String emolyeeCode, Integer recruiterId);
