@@ -36,5 +36,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     Optional<User> findUserWithRolesAndPrivileges(@Param("email") String email);
 
 
+    Optional<User> findUserByEmail(String email);
+
 }
 

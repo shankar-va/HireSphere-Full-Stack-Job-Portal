@@ -25,6 +25,7 @@ import org.springframework.http.HttpStatus;
 
 import org.springframework.http.ResponseEntity;
 
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -45,12 +46,12 @@ public class JobApplicationController {
 
     @PostMapping("/apply")
 
-    public ResponseEntity<JobApplicationResponse> apply(@RequestBody @Valid ApplyForJobRequest request) {
+    public ResponseEntity<JobApplicationResponse> apply(@RequestBody @Valid ApplyForJobRequest request,Authentication authentication) {
 
 
         return ResponseEntity.status(HttpStatus.CREATED)
 
-                             .body(jobApplicationService.applyForJob(request));
+                             .body(jobApplicationService.applyForJob(request,authentication.getName()));
 
     }
 
@@ -101,12 +102,12 @@ public class JobApplicationController {
 
     @PutMapping("/")
 
-    public ResponseEntity<JobApplicationResponse> update(@RequestBody @Valid ApplicationStatusUpdateRequest request) {
+    public ResponseEntity<JobApplicationResponse> update(@RequestBody @Valid ApplicationStatusUpdateRequest request, Authentication authentication) {
 
 
         return ResponseEntity.status(HttpStatus.ACCEPTED)
 
-                             .body(jobApplicationService.updateApplicationStatus(request));
+                             .body(jobApplicationService.updateApplicationStatus(request,authentication.getName()));
 
     }
 

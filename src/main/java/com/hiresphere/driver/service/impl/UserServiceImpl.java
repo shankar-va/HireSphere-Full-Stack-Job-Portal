@@ -10,6 +10,7 @@ import com.hiresphere.driver.mapper.user.UserMapper;
 import com.hiresphere.driver.model.entity.User;
 import com.hiresphere.driver.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -117,6 +118,14 @@ public class UserServiceImpl {
 
     }
 
+
+    public UserResponse getUserByEmail(String email) {
+
+
+        User user=userRepository.findUserByEmail(email)
+                                          .orElseThrow(() -> new UsernameNotFoundException("User not Found"));
+        return userMapper.toResponseDTO(user);
+    }
 
 }
 

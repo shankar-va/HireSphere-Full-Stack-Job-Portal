@@ -1,11 +1,13 @@
 package com.hiresphere.driver.dto.response.job;
 
 
+import com.hiresphere.driver.enumaration.job.EmploymentMode;
 import lombok.Builder;
 
 import lombok.Value;
 
 
+import java.time.LocalDate;
 import java.util.List;
 
 
@@ -42,6 +44,13 @@ public class JobResponse {
 
     String companyName;
 
+    List<EmploymentMode> employmentMode;
+
+    LocalDate applicationDeadLine;
+
+    Integer vacancies;
+
+    Boolean isClosed;
 
 }
 

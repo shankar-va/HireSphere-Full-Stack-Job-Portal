@@ -56,7 +56,8 @@ public class JobApplicationServiceImpl {
 
     @Transactional
 
-    public JobApplicationResponse applyForJob(ApplyForJobRequest request) {
+    public JobApplicationResponse applyForJob(ApplyForJobRequest request,String authenticatedEmail) {
+
 
 
         Job job = jobRepository.findById(request.getJobId())
@@ -67,6 +68,12 @@ public class JobApplicationServiceImpl {
 
                                                  .orElseThrow(() -> new JobSeekerNotFoundException("Job Seeker Not found"));
 
+        if (!jobSeeker.getUser().getEmail()
+                      .equalsIgnoreCase(authenticatedEmail)) {
+            throw new org.springframework.security.access.AccessDeniedException(
+                    "You cannot apply using another user's profile"
+            );
+        }
 
         if (job.getIsClosed()) throw new JobApplicationClosedException("Job Application Closed");
 
@@ -158,13 +165,22 @@ public class JobApplicationServiceImpl {
 
     @Transactional
 
-    public JobApplicationResponse updateApplicationStatus(ApplicationStatusUpdateRequest request) {
+    public JobApplicationResponse updateApplicationStatus(ApplicationStatusUpdateRequest request,String authenticatedEmail) {
 
 
         JobApplication jobApplication = jobApplicationRepository.findById(request.getApplicationId())
 
                                                                 .orElseThrow(() -> new JobApplicationNotFoundException("Job Application Not Found"));
+        String recruiterEmail = jobApplication.getJob()
+                                           .getRecruiter()
+                                           .getUser()
+                                           .getEmail();
 
+        if (!recruiterEmail.equalsIgnoreCase(authenticatedEmail)) {
+            throw new org.springframework.security.access.AccessDeniedException(
+                    "You cannot update applications for this job"
+            );
+        }
         if (jobApplication.getStatus()
 
                           .equals(ApplicationStatus.SELECTED)
@@ -181,9 +197,9 @@ public class JobApplicationServiceImpl {
 
         if (!jobApplication.getStatus()
 
-                    .canTransitionTo(jobApplication.getStatus())) {
+                    .canTransitionTo(request.getStatus())) {
 
-            throw new JobApplicationStatusUnchangeableException("Job Status Cannot be Changed");
+            throw new JobApplicationStatusUnchangeableException("Cannot transition application from"+jobApplication.getStatus()+" to "+request.getStatus());
 
         }
 
