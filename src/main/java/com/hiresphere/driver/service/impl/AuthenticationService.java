@@ -98,10 +98,10 @@ public class AuthenticationService {
 
     @Transactional
 
-    public boolean logoutAllDevices(UserDetails userDetails) {
+    public boolean logoutAllDevices(String email) {
 
 
-        User user = userRepository.findUserWithRolesAndPrivileges(userDetails.getUsername())
+        User user = userRepository.findUserWithRolesAndPrivileges(email)
 
                                   .orElseThrow(() -> new UsernameNotFoundException("User Not found"));
 

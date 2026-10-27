@@ -17,7 +17,7 @@ import java.util.Optional;
 
 @Repository
 
-public interface UserRepository extends JpaRepository<User, Integer> {
+public interface UserRepository extends JpaRepository<User, Long> {
 
 
     Boolean existsByEmail(String email);
@@ -26,10 +26,10 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     Boolean existsByPhoneNumber(String phoneNumber);
 
 
-    Boolean existsByEmailAndUserIdNot(String email, Integer id);
+    Boolean existsByEmailAndUserIdNot(String email, Long id);
 
 
-    Boolean existsByPhoneNumberAndUserIdNot(String phoneNumber, Integer id);
+    Boolean existsByPhoneNumberAndUserIdNot(String phoneNumber, Long id);
 
 
     @Query("SELECT DISTINCT u FROM User u LEFT JOIN FETCH u.roles r LEFT JOIN FETCH r.privileges WHERE u.email=:email")

@@ -5,8 +5,6 @@ import com.hiresphere.driver.enumaration.job.EmploymentMode;
 
 import jakarta.validation.constraints.*;
 
-import jdk.jfr.BooleanFlag;
-
 import lombok.*;
 
 
@@ -43,7 +41,7 @@ public class JobUpdateRequest {
 
     @Singular("emp_mode")
 
-    @PositiveOrZero
+    @Size(min = 1)
 
     Set<EmploymentMode> employmentMode;
 
@@ -56,6 +54,16 @@ public class JobUpdateRequest {
     @PositiveOrZero
 
     Double maximum_sal;
+
+
+    @PositiveOrZero
+
+    private Double minimumExperienceRequired;
+
+
+    @PositiveOrZero
+
+    private Double maximumExperienceRequired;
 
 
     @Singular("location")
@@ -72,8 +80,6 @@ public class JobUpdateRequest {
 
     LocalDate applicationDeadLine;
 
-
-    @BooleanFlag
 
     Boolean isClosed;
 

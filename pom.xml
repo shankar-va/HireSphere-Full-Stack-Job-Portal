@@ -150,8 +150,8 @@
 						<!-- Lombok processor must run first -->
 						<path>
 							<groupId>org.projectlombok</groupId>
-							<artifactId>lombok</artifactId>
-							<version>${org.projectlombok.version}</version>
+							<artifactId>lombok-mapstruct-binding</artifactId>
+							<version>0.2.0</version>
 						</path>
 						<!-- MapStruct binding processor must run second -->
 						<path>
@@ -159,6 +159,7 @@
 							<artifactId>mapstruct-processor</artifactId>
 							<version>${org.mapstruct.version}</version>
 						</path>
+
 					</annotationProcessorPaths>
 				</configuration>
 			</plugin>

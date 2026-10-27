@@ -29,7 +29,6 @@ import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("api/recruiter")
 
-@PreAuthorize("hasRole('RECRUITER')")
 
 public class RecruiterController {
 
@@ -51,6 +50,8 @@ public class RecruiterController {
 
     @GetMapping("/{id}")
 
+    @PreAuthorize("hasRole('RECRUITER')")
+
     public ResponseEntity<RecruiterResponse> get(@PathVariable @NotNull Integer id) {
 
 
@@ -63,6 +64,8 @@ public class RecruiterController {
 
     @PutMapping("/")
 
+    @PreAuthorize("hasRole('RECRUITER')")
+
     public ResponseEntity<RecruiterResponse> update(@RequestBody @Valid RecruiterUpdateRequest request) {
 
 
@@ -74,6 +77,8 @@ public class RecruiterController {
 
 
     @DeleteMapping("/{id}")
+
+    @PreAuthorize("hasRole('RECRUITER')")
 
     public void delete(@PathVariable @NotNull Integer id) {
 

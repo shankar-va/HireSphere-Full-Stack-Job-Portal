@@ -134,11 +134,7 @@ public class AuthController {
 
     public ResponseEntity<Void> logoutAll(Authentication authentication, HttpServletResponse response) {
 
-
-        UserDetails principal = (UserDetails) authentication.getPrincipal();
-
-
-        service.logoutAllDevices(principal);
+        service.logoutAllDevices(authentication.getName());
 
         clearRefreshToken(response);
 

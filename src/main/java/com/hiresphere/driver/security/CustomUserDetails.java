@@ -12,6 +12,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import java.util.List;
@@ -30,15 +31,22 @@ public class CustomUserDetails implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
 
 
-        List<SimpleGrantedAuthority> authorities = user.getRoles()
+        List<SimpleGrantedAuthority> authorities = new ArrayList();
 
-                                                       .stream()
+        if (user.getRoles() != null) {
+            user.getRoles()
+                .forEach(role -> {
+                    authorities.add(new SimpleGrantedAuthority(role.getRoles()
+                                                                   .name()));
+                    if (role.getPrivileges() != null) {
+                        role.getPrivileges()
+                            .forEach(privilege -> authorities.add(new SimpleGrantedAuthority(privilege.getPrivilege()
+                                                                                                      .name())));
+                    }
+                });
+        }
 
-                                                       .map(role -> new SimpleGrantedAuthority(role.getRoles()
 
-                                                                                                   .toString()))
-
-                                                       .toList();
 
         user.getRoles()
 
@@ -84,7 +92,7 @@ public class CustomUserDetails implements UserDetails {
     public boolean isAccountNonExpired() {
 
 
-        return UserDetails.super.isAccountNonExpired();
+        return Boolean.TRUE.equals(user.getIsAccountNonExpired());
 
     }
 
@@ -94,7 +102,7 @@ public class CustomUserDetails implements UserDetails {
     public boolean isAccountNonLocked() {
 
 
-        return UserDetails.super.isAccountNonLocked();
+        return Boolean.TRUE.equals(user.getIsAccountNonLocked());
 
     }
 
@@ -104,7 +112,7 @@ public class CustomUserDetails implements UserDetails {
     public boolean isCredentialsNonExpired() {
 
 
-        return UserDetails.super.isCredentialsNonExpired();
+        return Boolean.TRUE.equals(user.getIsCredentialsNonLocked());
 
     }
 
@@ -114,8 +122,7 @@ public class CustomUserDetails implements UserDetails {
     public boolean isEnabled() {
 
 
-        return UserDetails.super.isEnabled();
-
+        return Boolean.TRUE.equals(user.getIsEnabled());
     }
 
 

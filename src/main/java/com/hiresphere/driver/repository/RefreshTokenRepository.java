@@ -38,7 +38,7 @@ public interface RefreshTokenRepository extends JpaRepository<RefreshToken, Long
 
                                                    token);
 
-
+    @Modifying
     @Query("""
             
             UPDATE RefreshToken rt SET rt.revokedAt=:now WHERE rt.familyId=:familyId AND rt.revokedAt IS NULL""")

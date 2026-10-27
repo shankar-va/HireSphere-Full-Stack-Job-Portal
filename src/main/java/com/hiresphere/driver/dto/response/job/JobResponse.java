@@ -16,31 +16,24 @@ import java.util.List;
 @Builder
 
 public class JobResponse {
-
-
+    
     Integer jobId;
-
 
     String title;
 
-
     String description;
-
 
     List<String> preferredLocations;
 
-
     Double minimum_sal;
-
 
     Double maximum_sal;
 
+    Double minimumExperienceRequired;
 
-    Double experienceRequired;
-
+    Double maximumExperienceRequired;
 
     Integer companyId;
-
 
     String companyName;
 

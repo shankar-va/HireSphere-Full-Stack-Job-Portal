@@ -64,7 +64,7 @@ public class RecruiterServiceImpl {
     public RecruiterResponse register(RecruiterRegistrationRequest request) {
 
 
-        User user = userRepository.findById(request.getUserId())
+        User user = userRepository.findById(Long.valueOf(request.getUserId()))
 
                                   .orElseThrow(() -> new UserNotFoundException("User Not Found"));
 

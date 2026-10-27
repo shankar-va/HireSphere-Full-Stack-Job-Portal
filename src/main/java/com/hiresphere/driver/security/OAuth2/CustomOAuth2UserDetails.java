@@ -8,6 +8,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -73,18 +74,30 @@ public class CustomOAuth2UserDetails implements OAuth2User, UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
 
-        List<SimpleGrantedAuthority> authorities = user.getRoles()
-                                                       .stream()
-                                                       .map(role -> new SimpleGrantedAuthority(role.getRoles()
-                                                                                                   .toString()))
-                                                       .toList();
-        user.getRoles()
-            .stream()
-            .flatMap(role -> role.getPrivileges()
-                                 .stream())
-            .map(privilege -> new SimpleGrantedAuthority(privilege.getPrivilege()
-                                                                  .toString()))
-            .forEach(authorities::add);
+        List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+
+        if (user.getRoles() != null) {
+            user.getRoles()
+                .forEach(role -> {
+                    authorities.add(
+                            new SimpleGrantedAuthority(role.getRoles()
+                                                           .name())
+                    );
+
+                    if (role.getPrivileges() != null) {
+                        role.getPrivileges()
+                            .forEach(privilege ->
+                                    authorities.add(
+                                            new SimpleGrantedAuthority(
+                                                    privilege.getPrivilege()
+                                                             .name()
+                                            )
+                                    )
+                            );
+                    }
+                });
+        }
+
         return authorities;
     }
 

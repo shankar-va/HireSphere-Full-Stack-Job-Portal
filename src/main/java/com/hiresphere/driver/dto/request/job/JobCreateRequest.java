@@ -51,7 +51,11 @@ public class JobCreateRequest {
 
     @PositiveOrZero
 
-    private Double experienceRequired;
+    private Double minimumExperienceRequired;
+
+    @PositiveOrZero
+
+    private Double maximumExperienceRequired;
 
 
     @NotNull

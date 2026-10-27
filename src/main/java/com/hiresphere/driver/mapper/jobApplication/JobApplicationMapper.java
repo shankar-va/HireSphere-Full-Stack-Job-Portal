@@ -37,7 +37,10 @@ public interface JobApplicationMapper {
 
     JobApplicationResponse toResponseDTO(JobApplication jobApplication);
 
-
+    @Mapping(source = "job.jobId", target = "jobId")
+    @Mapping(source = "job.title", target = "jobTitle")
+    @Mapping(source = "job.company.companyId", target = "companyId")
+    @Mapping(source = "job.company.companyName", target = "companyName")
     JobApplicationSummaryResponse toSummaryResponseDTO(JobApplication jobApplication);
 
 

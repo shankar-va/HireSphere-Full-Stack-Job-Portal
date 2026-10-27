@@ -88,7 +88,7 @@ public class JobSeekerServiceImpl {
     public JobSeekerResponse registerJobSeeker(JobSeekerRegistrationRequest request, Integer userId) {
 
 
-        User user = userRepository.findById(userId)
+        User user = userRepository.findById(Long.valueOf(userId))
 
                                   .orElseThrow(() -> new UserNotFoundException("User Not Found."));
 
